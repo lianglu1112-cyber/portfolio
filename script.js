@@ -147,6 +147,49 @@ function getText(key) {
   return translations[currentLanguage][key] || translations.cn[key] || '';
 }
 
+function getProjectPrimarySource(project) {
+  if (currentLanguage === 'cn' && project.dataset.cnSrc) return project.dataset.cnSrc;
+  return project.dataset.src;
+}
+
+function getProjectGallerySources(project) {
+  const gallery = currentLanguage === 'cn' && project.dataset.cnGallery
+    ? project.dataset.cnGallery
+    : project.dataset.gallery;
+  return (gallery || '').split('|').filter(Boolean);
+}
+
+function getProjectThumbnailSource(project) {
+  if (currentLanguage === 'cn' && project.dataset.cnThumbnail) return project.dataset.cnThumbnail;
+  return project.dataset.thumbnail;
+}
+
+function populateDetailGallery(project, gallerySources) {
+  const galleryLabels = (project.dataset.galleryLabels || '').split('|');
+  detailGallery.replaceChildren();
+  gallerySources.forEach((source, index) => {
+    const item = document.createElement('figure');
+    item.className = 'detail-gallery-item';
+    const image = document.createElement('img');
+    image.src = source;
+    image.alt = `${project.dataset.title} 图片 ${index + 1}`;
+    image.loading = 'eager';
+    image.addEventListener('load', syncDetailGalleryScrollbar, { once:true });
+    item.append(image);
+
+    const label = galleryLabels[index];
+    if (label) {
+      const caption = document.createElement('figcaption');
+      caption.className = 'detail-gallery-label';
+      caption.textContent = label;
+      item.classList.add('has-label');
+      item.append(caption);
+    }
+
+    detailGallery.append(item);
+  });
+}
+
 function updateDetailText(project) {
   const isVideo = project.dataset.type === 'video';
   detailTitle.textContent = project.dataset.title;
@@ -222,6 +265,8 @@ function applyLanguage(language) {
     project.querySelector('.project-meta p').textContent = projectText.title;
     project.querySelector('.project-meta span').textContent = projectText.meta;
     project.querySelector('.project-action').innerHTML = `${getText('viewWork')} <b>↗</b>`;
+    const thumbnailSource = getProjectThumbnailSource(project);
+    if (thumbnailSource) project.querySelector(':scope > img').src = thumbnailSource;
     updateProjectHoverInfo(project, projectText);
   });
   languageButtons.forEach((button) => {
@@ -232,6 +277,21 @@ function applyLanguage(language) {
   updateOrbitText();
   if (activeProject && detail.classList.contains('is-open')) {
     updateDetailText(activeProject);
+    if (activeProject.dataset.cnSrc || activeProject.dataset.cnGallery) {
+      const primarySource = getProjectPrimarySource(activeProject);
+      const gallerySources = getProjectGallerySources(activeProject);
+      detailImage.src = primarySource;
+      detailImage.alt = activeProject.querySelector('img').alt;
+      detail.style.setProperty('--detail-cover', `url("${encodeURI(primarySource)}")`);
+      if (detail.classList.contains('is-revealed') && gallerySources.length) {
+        populateDetailGallery(activeProject, gallerySources);
+        detailImage.hidden = true;
+        detailGallery.hidden = false;
+        detailGallery.scrollTop = 0;
+        setupDetailGalleryMotion();
+        window.requestAnimationFrame(syncDetailGalleryScrollbar);
+      }
+    }
     window.requestAnimationFrame(fitDetailTitle);
   }
   try { window.localStorage.setItem('portfolio-language', language); } catch (_) {}
@@ -322,42 +382,21 @@ function openProject(project) {
   detailGalleryObserver?.disconnect();
   detailGalleryObserver = undefined;
   activeProject = project;
-  const gallerySources = (project.dataset.gallery || '').split('|').filter(Boolean);
-  const galleryLabels = (project.dataset.galleryLabels || '').split('|');
+  const gallerySources = getProjectGallerySources(project);
+  const primarySource = getProjectPrimarySource(project);
   const hasEmbeddedVideo = project.dataset.embedVideo === 'true';
 
-  detailGallery.replaceChildren();
   detailGallery.hidden = true;
   detailGalleryScrollbar.hidden = true;
   detailVideo.pause();
   detailVideo.hidden = true;
   detailVideo.removeAttribute('src');
   detailVideo.load();
-  gallerySources.forEach((source, index) => {
-    const item = document.createElement('figure');
-    item.className = 'detail-gallery-item';
-    const image = document.createElement('img');
-    image.src = source;
-    image.alt = `${project.dataset.title} 图片 ${index + 1}`;
-    image.loading = 'eager';
-    image.addEventListener('load', syncDetailGalleryScrollbar, { once:true });
-    item.append(image);
+  populateDetailGallery(project, gallerySources);
 
-    const label = galleryLabels[index];
-    if (label) {
-      const caption = document.createElement('figcaption');
-      caption.className = 'detail-gallery-label';
-      caption.textContent = label;
-      item.classList.add('has-label');
-      item.append(caption);
-    }
-
-    detailGallery.append(item);
-  });
-
-  detailImage.src = project.dataset.src;
+  detailImage.src = primarySource;
   detailImage.alt = project.querySelector('img').alt;
-  detail.style.setProperty('--detail-cover', `url("${encodeURI(project.dataset.src)}")`);
+  detail.style.setProperty('--detail-cover', `url("${encodeURI(primarySource)}")`);
   detailImage.hidden = false;
   if (hasEmbeddedVideo) {
     detailVideo.src = project.dataset.video;
