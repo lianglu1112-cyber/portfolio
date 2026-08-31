@@ -14,8 +14,13 @@ const detailTitle = document.querySelector('#detail-title');
 const detailMeta = document.querySelector('#detail-meta');
 const detailCopy = document.querySelector('.detail-copy');
 const detailOriginal = document.querySelector('#detail-original');
+const footerEmailLink = document.querySelector('.footer-email');
+const footerEmailAddress = document.querySelector('.footer-email-address');
+const aboutCover = document.querySelector('.about-cover');
 const languageButtons = document.querySelectorAll('[data-language]');
+const filterButtons = document.querySelectorAll('[data-filter]');
 let currentLanguage = 'cn';
+let activeFilter = 'all';
 let activeProject = null;
 let detailRevealTimer;
 let detailVideoTimer;
@@ -23,15 +28,26 @@ let returnedOrbitFrame;
 let mosaicEnterTimer;
 let returnLayoutFrame;
 
+const aboutCoverSources = {
+  cn: 'assets/about-cn.png',
+  en: 'assets/about-en.png',
+  jp: 'assets/about-jp.png',
+};
+
+function setOrbitScrollLocked(locked) {
+  document.documentElement.classList.toggle('orbit-scroll-locked', locked);
+  document.body.classList.toggle('is-orbit-scroll-locked', locked);
+}
+
 const translations = {
   cn: {
     lang: 'zh-CN', documentTitle: '梁璐 — 作品集', mainNav: '主导航', languageSwitch: '语言切换', backToTop: '回到顶部', wordmarkName: '梁璐',
     navWorks: '作品', navAbout: '关于', navContact: '联系', introEyebrow: 'Selected works · 2021—2026',
     introTitle: '把感受<br />做成可见的形状。', introCopy: '三维、影像与手作之间，<br />寻找材料和情绪的临界点。', scrollWorks: '向下浏览',
-    workTitle: '作品集', orbitLabel: '旋转作品环', orbitTitle: 'Works', aboutEyebrow: 'About',
-    aboutCopy: '我是梁璐，一名独立视觉设计师。<br />我以影像为笔，探索数字与真实世界里的微小诗意。', footerNote: 'Designed with intention',
+    workTitle: '作品集', orbitLabel: '旋转作品环', orbitTitle: 'Works', workFilters: '作品分类筛选', filter3d: '3D', filterVideo: 'video', filterDesign: 'design', aboutEyebrow: 'About',
+    contactEmail: 'lianglu1112@126.com', footerNote: 'Designed with intention',
     closePreview: '关闭预览', closeDetail: '关闭作品详情', back: '返回', viewWork: '查看', viewImage: '查看原图', viewVideo: '查看视频', hoverName: '名称', hoverTime: '制作时间', hoverType: '类型', hoverMasterProject: '研究生毕业设计', hoverUndergraduateProject: '本科毕业设计', type3d: '3D', typeUiUx: 'UI/UX设计', type3dBook: '3D，实物书', typeFilm18: '18min短片', typeFilm17: '17min短片', typeHandcraft: '手工', typeInteractive: '互动动画', typePublicService: '1min公益广告',
-    orbitHomeName: '梁璐的作品', orbitHomeMeta: '点击作品查看详情', orbitFocusName: 'kiuso', orbitFocusMeta: '焦点作品 · 点击任意作品查看详情',
+    orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '焦点作品 · 点击任意作品查看详情',
     projects: {
       flower: { title: '花的轨道', meta: '2026.5', copy: '个人制作' },
       woman: { title: '女', meta: '3D/2026.6', copy: '个人制作' },
@@ -54,10 +70,10 @@ const translations = {
     lang: 'en', documentTitle: 'Liang Lu — Selected Works', mainNav: 'Main navigation', languageSwitch: 'Language selector', backToTop: 'Back to top', wordmarkName: 'Liang Lu',
     navWorks: 'Works', navAbout: 'About', navContact: 'Contact', introEyebrow: 'Selected works · 2021—2026',
     introTitle: 'Giving feeling<br />a visible form.', introCopy: 'Between 3D, moving image and making,<br />I look for the threshold of material and emotion.', scrollWorks: 'Explore works',
-    workTitle: 'Works', orbitLabel: 'Rotating work orbit', orbitTitle: 'Works', aboutEyebrow: 'About',
-    aboutCopy: 'I’m Liang Lu, an independent visual designer.<br />Working with moving image, I explore small poetics between the digital and the real.', footerNote: 'Designed with intention',
+    workTitle: 'Works', orbitLabel: 'Rotating work orbit', orbitTitle: 'Works', workFilters: 'Work filters', filter3d: '3D', filterVideo: 'video', filterDesign: 'design', aboutEyebrow: 'About',
+    contactEmail: 'lianglu1112@126.com', footerNote: 'Designed with intention',
     closePreview: 'Close preview', closeDetail: 'Close work detail', back: 'Back', viewWork: 'View', viewImage: 'View image', viewVideo: 'Watch film', hoverName: 'Title', hoverTime: 'Date', hoverType: 'Type', hoverMasterProject: 'Master’s graduation project', hoverUndergraduateProject: 'Undergraduate graduation project', type3d: '3D', typeUiUx: 'UI/UX Design', type3dBook: '3D / Physical book', typeFilm18: '18-min short film', typeFilm17: '17-min short film', typeHandcraft: 'Handcraft', typeInteractive: 'Interactive animation', typePublicService: '1-min public service film',
-    orbitHomeName: 'Liang Lu’s works', orbitHomeMeta: 'Select a work to view details', orbitFocusName: 'kiuso', orbitFocusMeta: 'Featured work · Select any work to view details',
+    orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: 'Featured work · Select any work to view details',
     projects: {
       flower: { title: 'Flower Orbit', meta: 'May 2026', copy: 'Independent project' },
       woman: { title: 'Woman', meta: '3D / Jun. 2026', copy: 'Independent project' },
@@ -80,10 +96,10 @@ const translations = {
     lang: 'ja', documentTitle: '梁璐 — 作品集', mainNav: 'メインナビゲーション', languageSwitch: '言語切替', backToTop: 'ページ上部へ', wordmarkName: 'Liang Lu',
     navWorks: '作品', navAbout: '私について', navContact: '連絡', introEyebrow: 'Selected works · 2021—2026',
     introTitle: '感覚を<br />見えるかたちに。', introCopy: '3D、映像、手作りのあいだで、<br />素材と感情の境界を探しています。', scrollWorks: '作品を見る',
-    workTitle: '作品集', orbitLabel: '回転する作品リング', orbitTitle: 'Works', aboutEyebrow: 'About',
-    aboutCopy: '梁璐、インディペンデント・ビジュアルデザイナーです。<br />映像を通して、デジタルと現実世界の小さな詩情を探求しています。', footerNote: 'Designed with intention',
-    closePreview: 'プレビューを閉じる', closeDetail: '作品詳細を閉じる', back: '戻る', viewWork: '見る', viewImage: '画像を見る', viewVideo: '映像を見る', hoverName: '作品名', hoverTime: '制作時期', hoverType: '種類', hoverMasterProject: '大学院修了制作', hoverUndergraduateProject: '大学卒業制作', hoverWorkInProgress: '制作中・随時更新', type3d: '3D', typeUiUx: 'UI/UXデザイン', type3dBook: '3D・実物書', typeFilm18: '18分短編映画', typeFilm17: '17分短編映画', typeHandcraft: '手作り', typeInteractive: 'インタラクティブアニメーション', typePublicService: '1分公益広告',
-    orbitHomeName: '梁璐の作品', orbitHomeMeta: '作品を選択して詳細を見る', orbitFocusName: 'kiuso', orbitFocusMeta: '注目作品 · 作品を選択して詳細を見る',
+    workTitle: '作品集', orbitLabel: '回転する作品リング', orbitTitle: 'Works', workFilters: '作品カテゴリー', filter3d: '3D', filterVideo: '映像', filterDesign: 'デザイン', aboutEyebrow: 'About',
+    contactEmail: 'lianglu1112@gmail.com', footerNote: 'Designed with intention',
+    closePreview: 'プレビューを閉じる', closeDetail: '作品詳細を閉じる', back: '戻る', viewWork: '見る', viewImage: '画像を見る', viewVideo: '映像を見る', hoverName: '作品名', hoverTime: '制作時期', hoverType: '種類', hoverMasterProject: '大学院修了制作', hoverUndergraduateProject: '大学卒業制作', hoverWorkInProgress: '制作中・随時更新', type3d: '3D', typeUiUx: 'UI/UXデザイン', type3dBook: '3D・実物書', typeFilm18: '映像', typeFilm17: '映像', typeHandcraft: '手作り', typeInteractive: 'インタラクティブアニメーション', typePublicService: '映像',
+    orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '注目作品 · 作品を選択して詳細を見る',
     projects: {
       flower: { title: '花の軌道', meta: '2026.5', copy: '個人制作' },
       woman: { title: '女', meta: '3D / 2026.6', copy: '個人制作' },
@@ -94,11 +110,11 @@ const translations = {
       collection: { title: 'collation', meta: 'UI/UXデザイン / 2022.12', copy: '個人制作' },
       kiuso: { title: '木うそ', meta: '3D・実物書', detailMeta: '3D・実物書|大学院修了制作|制作中・随時更新', copy: '個人制作|「Minamiku Art Next Collection 2026」出展|SICF Fukuoka 2026 出展' },
       island: { title: '浮遊する島', meta: '3D / 2026.3', copy: '個人制作' },
-      monica: { title: 'モニカとの出会い', meta: '18分短編映画', detailMeta: '18分短編映画|大学卒業制作', copy: '3人による主創チーム / 編集 / 同期録音 / 美術' },
-      lili: { title: '里里', meta: '17分短編映画', copy: '7人による主創チーム / プロデューサー / 美術 / 同期録音 / カラーグレーディング' },
+      monica: { title: 'モニカとの出会い', meta: '映像 / 18分', detailMeta: '映像 / 18分|大学卒業制作', copy: '3人による主創チーム / 編集 / 同期録音 / 美術' },
+      lili: { title: '里里', meta: '映像 / 17分', detailMeta: '映像 / 17分', copy: '7人による主創チーム / プロデューサー / 美術 / 同期録音 / カラーグレーディング' },
       smell: { title: '香料の香りの可視化', meta: '手作り / 2023', copy: '個人制作' },
-      herGone: { title: '消えた彼女', meta: 'インタラクティブアニメーション', copy: '4人による主創チーム / キャラクターデザイン / 一部アニメーション制作 / 進行管理 / 声優|中国高等院校映像学会（CCAVA）学院賞「アニメーション・デジタルメディア作品部門」学生組 二等賞' },
-      blocks: { title: '積み木人生', meta: '1分公益広告', copy: '4人による主創チーム / 監督|中国高等院校映像学会（CCAVA）学院賞・ショートビデオ部門 学生組 三等賞' },
+      herGone: { title: '消えた彼女', meta: '映像 / インタラクティブアニメーション', detailMeta: '映像 / インタラクティブアニメーション', copy: '4人による主創チーム / キャラクターデザイン / 一部アニメーション制作 / 進行管理 / 声優|中国高等院校映像学会（CCAVA）学院賞「アニメーション・デジタルメディア作品部門」学生組 二等賞' },
+      blocks: { title: '積み木人生', meta: '映像 / 1分公益広告', detailMeta: '映像 / 1分公益広告', copy: '4人による主創チーム / 監督|中国高等院校映像学会（CCAVA）学院賞・ショートビデオ部門 学生組 三等賞' },
       foNext: { title: 'Fo-Next', meta: 'UI/UXデザイン / 2023.3', copy: '個人制作' }
     }
   }
@@ -154,6 +170,25 @@ function updateProjectHoverInfo(project, projectText) {
   note.hidden = !noteText;
 }
 
+function applyFilter(filter) {
+  activeFilter = activeFilter === filter ? 'all' : filter;
+  projects.forEach((project) => {
+    const categories = project.dataset.category.split(/\s+/);
+    const isMatch = activeFilter === 'all' || categories.includes(activeFilter);
+    project.hidden = false;
+    project.classList.remove('is-filter-hidden');
+    project.classList.toggle('is-filter-match', activeFilter !== 'all' && isMatch);
+    project.setAttribute('aria-hidden', 'false');
+  });
+  orbit.classList.toggle('is-filtering', activeFilter !== 'all');
+  orbit.dataset.activeFilter = activeFilter;
+  filterButtons.forEach((button) => {
+    const isActive = button.dataset.filter === activeFilter;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', String(isActive));
+  });
+}
+
 function applyLanguage(language) {
   if (!translations[language]) return;
   currentLanguage = language;
@@ -168,6 +203,10 @@ function applyLanguage(language) {
   document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
     element.setAttribute('aria-label', getText(element.dataset.i18nAriaLabel));
   });
+  const contactEmail = getText('contactEmail');
+  footerEmailLink.href = `mailto:${contactEmail}`;
+  footerEmailAddress.textContent = contactEmail;
+  aboutCover.src = aboutCoverSources[language];
   projects.forEach((project) => {
     const projectText = translations[language].projects[project.dataset.projectId];
     if (!projectText) return;
@@ -294,6 +333,7 @@ function resetOrbit() {
   orbit.classList.remove('is-zoomed', 'is-focusing');
   orbit.classList.remove('is-returned', 'is-melius-enter');
   orbit.classList.add('is-mosaic', 'is-return-layout', 'is-return-enter');
+  setOrbitScrollLocked(false);
   document.body.classList.remove('is-opening', 'is-intro-zoom', 'is-resetting', 'is-orbit-home');
   updateOrbitText();
   orbitReset.hidden = true;
@@ -311,6 +351,7 @@ function settleOnRing() {
   orbit.classList.remove('is-melius-enter');
   projects.forEach((project) => project.style.removeProperty('transform'));
   orbit.classList.add('is-zoomed', 'is-focusing');
+  setOrbitScrollLocked(true);
   updateOrbitText();
   orbitReset.hidden = false;
   document.body.classList.remove('is-opening', 'is-intro-zoom', 'is-orbit-home');
@@ -318,15 +359,14 @@ function settleOnRing() {
 
 function playOpening() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    settleOnRing();
+    resetOrbit();
     return;
   }
 
   window.setTimeout(() => {
     document.body.classList.remove('is-opening');
     document.body.classList.add('is-intro-zoom');
-    window.setTimeout(() => orbit.classList.add('is-focusing'), 1650);
-    window.setTimeout(settleOnRing, 2600);
+    window.setTimeout(resetOrbit, 2600);
   }, 2000);
 }
 
@@ -343,6 +383,13 @@ projects.forEach((project) => {
 orbitReset.addEventListener('click', resetOrbit);
 languageButtons.forEach((button) => {
   button.addEventListener('click', () => applyLanguage(button.dataset.language));
+});
+document.addEventListener('click', (event) => {
+  const button = event.target.closest('[data-filter]');
+  if (!button) return;
+  event.preventDefault();
+  event.stopPropagation();
+  applyFilter(button.dataset.filter);
 });
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && detail.classList.contains('is-open')) {
@@ -365,3 +412,5 @@ window.addEventListener('load', () => {
   applyLanguage(savedLanguage);
   playOpening();
 }, { once: true });
+
+setOrbitScrollLocked(true);
