@@ -401,18 +401,33 @@ body.is-intro-zoom .gallery--orbit .project {
   padding:0;
   box-sizing:border-box;
   scrollbar-gutter:stable;
-  scrollbar-width:auto;
-  scrollbar-color:#5e92bf #f3f3f3;
+  scrollbar-width:none;
 }
 .detail-gallery::-webkit-scrollbar {
-  width:8px;
+  width:0;
+  height:0;
 }
-.detail-gallery::-webkit-scrollbar-track {
+.detail-gallery-scrollbar {
+  position:absolute;
+  z-index:2;
+  top:0;
+  right:0;
+  width:8px;
+  height:100%;
+  overflow:hidden;
+  pointer-events:none;
   background:#f3f3f3;
 }
-.detail-gallery::-webkit-scrollbar-thumb {
+.detail-gallery-scrollbar span {
+  position:absolute;
+  top:0;
+  left:0;
+  display:block;
+  width:100%;
+  min-height:36px;
   border-radius:99px;
   background:#5e92bf;
+  will-change:transform,height;
 }
 .project-detail.is-revealed:not(.is-video) .detail-media .detail-gallery img {
   display:block;

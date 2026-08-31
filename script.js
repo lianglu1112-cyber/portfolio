@@ -10,6 +10,8 @@ const detail = document.querySelector('.project-detail');
 const detailMedia = document.querySelector('.detail-media');
 const detailImage = document.querySelector('#detail-image');
 const detailGallery = document.querySelector('#detail-gallery');
+const detailGalleryScrollbar = document.querySelector('#detail-gallery-scrollbar');
+const detailGalleryScrollbarThumb = document.querySelector('#detail-gallery-scrollbar-thumb');
 const detailTitle = document.querySelector('#detail-title');
 const detailMeta = document.querySelector('#detail-meta');
 const detailCopy = document.querySelector('.detail-copy');
@@ -259,6 +261,23 @@ function fitDetailTitle() {
   }
 }
 
+function syncDetailGalleryScrollbar() {
+  const hasOverflow = !detailGallery.hidden && detailGallery.scrollHeight > detailGallery.clientHeight;
+  detailGalleryScrollbar.hidden = !hasOverflow;
+  if (!hasOverflow) return;
+
+  const thumbHeight = Math.max(36, (detailGallery.clientHeight / detailGallery.scrollHeight) * detailGallery.clientHeight);
+  const maxOffset = detailGallery.clientHeight - thumbHeight;
+  const scrollableHeight = detailGallery.scrollHeight - detailGallery.clientHeight;
+  const offset = scrollableHeight ? (detailGallery.scrollTop / scrollableHeight) * maxOffset : 0;
+
+  detailGalleryScrollbarThumb.style.height = `${thumbHeight}px`;
+  detailGalleryScrollbarThumb.style.transform = `translateY(${offset}px)`;
+}
+
+detailGallery.addEventListener('scroll', syncDetailGalleryScrollbar);
+window.addEventListener('resize', syncDetailGalleryScrollbar);
+
 projects.forEach((project) => {
   const inner = document.createElement('div');
   inner.className = 'project-inner';
@@ -278,11 +297,13 @@ function openProject(project) {
 
   detailGallery.replaceChildren();
   detailGallery.hidden = true;
+  detailGalleryScrollbar.hidden = true;
   gallerySources.forEach((source, index) => {
     const image = document.createElement('img');
     image.src = source;
     image.alt = `${project.dataset.title} 图片 ${index + 1}`;
-    image.loading = index === 0 ? 'eager' : 'lazy';
+    image.loading = 'eager';
+    image.addEventListener('load', syncDetailGalleryScrollbar, { once:true });
     detailGallery.append(image);
   });
 
@@ -305,6 +326,7 @@ function openProject(project) {
         detailImage.hidden = true;
         detailGallery.hidden = false;
         detailGallery.scrollTop = 0;
+        window.requestAnimationFrame(syncDetailGalleryScrollbar);
       }
       window.requestAnimationFrame(fitDetailTitle);
     }, 2000);
@@ -315,6 +337,7 @@ function closeProjectDetail() {
   window.clearTimeout(detailRevealTimer);
   detailGallery.hidden = true;
   detailGallery.replaceChildren();
+  detailGalleryScrollbar.hidden = true;
   detail.classList.remove('is-revealed');
   document.body.classList.remove('detail-open');
   window.setTimeout(() => {
