@@ -467,6 +467,16 @@ body.is-intro-zoom .gallery--orbit .project {
 .project-detail.is-video.is-revealed .detail-info {
   background:#fff;
 }
+.project-detail.is-plain-detail.is-revealed {
+  background:#fff;
+  background-image:none;
+}
+.project-detail.has-video-link .detail-info a {
+  border-bottom-color:#5e92bf;
+}
+.project-detail.has-video-link .detail-info a span {
+  color:#5e92bf;
+}
 .detail-info > :not(.detail-corner) {
   position:relative;
   z-index:1;
