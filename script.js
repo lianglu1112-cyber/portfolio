@@ -9,6 +9,7 @@ const orbitReset = document.querySelector('.orbit-reset');
 const detail = document.querySelector('.project-detail');
 const detailMedia = document.querySelector('.detail-media');
 const detailImage = document.querySelector('#detail-image');
+const detailVideo = document.querySelector('#detail-video');
 const detailGallery = document.querySelector('#detail-gallery');
 const detailGalleryScrollbar = document.querySelector('#detail-gallery-scrollbar');
 const detailGalleryScrollbarThumb = document.querySelector('#detail-gallery-scrollbar-thumb');
@@ -25,6 +26,7 @@ let currentLanguage = 'cn';
 let activeFilter = 'all';
 let activeProject = null;
 let detailRevealTimer;
+let detailVideoTimer;
 let detailGalleryObserver;
 const plainDetailProjects = new Set(['flower', 'woman', 'dream', 'skyMirror', 'future']);
 let returnedOrbitFrame;
@@ -316,14 +318,20 @@ projects.forEach((project) => {
 
 function openProject(project) {
   window.clearTimeout(detailRevealTimer);
+  window.clearTimeout(detailVideoTimer);
   detailGalleryObserver?.disconnect();
   detailGalleryObserver = undefined;
   activeProject = project;
   const gallerySources = (project.dataset.gallery || '').split('|').filter(Boolean);
+  const hasEmbeddedVideo = project.dataset.embedVideo === 'true';
 
   detailGallery.replaceChildren();
   detailGallery.hidden = true;
   detailGalleryScrollbar.hidden = true;
+  detailVideo.pause();
+  detailVideo.hidden = true;
+  detailVideo.removeAttribute('src');
+  detailVideo.load();
   gallerySources.forEach((source, index) => {
     const image = document.createElement('img');
     image.src = source;
@@ -337,6 +345,10 @@ function openProject(project) {
   detailImage.alt = project.querySelector('img').alt;
   detail.style.setProperty('--detail-cover', `url("${encodeURI(project.dataset.src)}")`);
   detailImage.hidden = false;
+  if (hasEmbeddedVideo) {
+    detailVideo.src = project.dataset.video;
+    detailVideo.load();
+  }
   updateDetailText(project);
   const hideOriginal = project.dataset.hideOriginal === 'true';
   detailOriginal.hidden = hideOriginal;
@@ -358,6 +370,13 @@ function openProject(project) {
         detailGallery.scrollTop = 0;
         setupDetailGalleryMotion();
         window.requestAnimationFrame(syncDetailGalleryScrollbar);
+      } else if (hasEmbeddedVideo) {
+        detailVideoTimer = window.setTimeout(() => {
+          detailImage.hidden = true;
+          detailVideo.hidden = false;
+          detailVideo.currentTime = 0;
+          detailVideo.play().catch(() => {});
+        }, 900);
       }
       window.requestAnimationFrame(fitDetailTitle);
     }, 2000);
@@ -366,8 +385,11 @@ function openProject(project) {
 
 function closeProjectDetail() {
   window.clearTimeout(detailRevealTimer);
+  window.clearTimeout(detailVideoTimer);
   detailGalleryObserver?.disconnect();
   detailGalleryObserver = undefined;
+  detailVideo.pause();
+  detailVideo.hidden = true;
   detailGallery.hidden = true;
   detailGallery.replaceChildren();
   detailGalleryScrollbar.hidden = true;
