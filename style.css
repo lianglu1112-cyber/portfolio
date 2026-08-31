@@ -477,6 +477,9 @@ body.is-intro-zoom .gallery--orbit .project {
 .project-detail.has-video-link .detail-info a span {
   color:#5e92bf;
 }
+.project-detail.is-without-original #detail-original {
+  display:none !important;
+}
 .detail-info > :not(.detail-corner) {
   position:relative;
   z-index:1;

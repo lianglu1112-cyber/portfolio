@@ -313,11 +313,13 @@ function openProject(project) {
   detail.style.setProperty('--detail-cover', `url("${encodeURI(project.dataset.src)}")`);
   detailImage.hidden = false;
   updateDetailText(project);
-  detailOriginal.hidden = project.dataset.hideOriginal === 'true';
+  const hideOriginal = project.dataset.hideOriginal === 'true';
+  detailOriginal.hidden = hideOriginal;
   detail.classList.remove('is-video');
   detail.classList.toggle('has-gallery', gallerySources.length > 0);
   detail.classList.toggle('has-video-link', project.dataset.type === 'video');
   detail.classList.toggle('is-plain-detail', plainDetailProjects.has(project.dataset.projectId));
+  detail.classList.toggle('is-without-original', hideOriginal);
   detail.classList.toggle('is-portrait', project.dataset.orientation === 'portrait');
   detail.classList.add('is-open');
   detail.setAttribute('aria-hidden', 'false');
@@ -349,6 +351,7 @@ function closeProjectDetail() {
     detail.classList.remove('has-gallery');
     detail.classList.remove('has-video-link');
     detail.classList.remove('is-plain-detail');
+    detail.classList.remove('is-without-original');
     detail.classList.remove('is-portrait');
     detail.style.removeProperty('--detail-cover');
     detail.setAttribute('aria-hidden', 'true');
