@@ -323,6 +323,7 @@ function openProject(project) {
   detailGalleryObserver = undefined;
   activeProject = project;
   const gallerySources = (project.dataset.gallery || '').split('|').filter(Boolean);
+  const galleryLabels = (project.dataset.galleryLabels || '').split('|');
   const hasEmbeddedVideo = project.dataset.embedVideo === 'true';
 
   detailGallery.replaceChildren();
@@ -333,12 +334,25 @@ function openProject(project) {
   detailVideo.removeAttribute('src');
   detailVideo.load();
   gallerySources.forEach((source, index) => {
+    const item = document.createElement('figure');
+    item.className = 'detail-gallery-item';
     const image = document.createElement('img');
     image.src = source;
     image.alt = `${project.dataset.title} 图片 ${index + 1}`;
     image.loading = 'eager';
     image.addEventListener('load', syncDetailGalleryScrollbar, { once:true });
-    detailGallery.append(image);
+    item.append(image);
+
+    const label = galleryLabels[index];
+    if (label) {
+      const caption = document.createElement('figcaption');
+      caption.className = 'detail-gallery-label';
+      caption.textContent = label;
+      item.classList.add('has-label');
+      item.append(caption);
+    }
+
+    detailGallery.append(item);
   });
 
   detailImage.src = project.dataset.src;
