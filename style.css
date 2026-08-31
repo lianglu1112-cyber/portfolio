@@ -420,6 +420,12 @@ body.is-intro-zoom .gallery--orbit .project {
   flex:0 0 auto;
   object-fit:contain;
 }
+@media (min-width:701px) {
+  .project-detail.has-gallery.is-revealed:not(.is-video) .detail-media {
+    left:4vw;
+    width:calc(96vw - min(31vw, 480px));
+  }
+}
 @media (max-width:700px) {
   .project-detail.is-revealed:not(.is-video) .detail-media {
     top:7vh;
