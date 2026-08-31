@@ -25,6 +25,7 @@ let currentLanguage = 'cn';
 let activeFilter = 'all';
 let activeProject = null;
 let detailRevealTimer;
+let detailGalleryObserver;
 const plainDetailProjects = new Set(['flower', 'woman', 'dream', 'skyMirror', 'future']);
 let returnedOrbitFrame;
 let mosaicEnterTimer;
@@ -276,6 +277,28 @@ function syncDetailGalleryScrollbar() {
   detailGalleryScrollbarThumb.style.transform = `translateY(${offset}px)`;
 }
 
+function setupDetailGalleryMotion() {
+  detailGalleryObserver?.disconnect();
+  const images = detailGallery.querySelectorAll('img');
+  if (!images.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    images.forEach((image) => image.classList.add('is-gallery-visible'));
+    return;
+  }
+
+  detailGalleryObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle('is-gallery-visible', entry.isIntersecting && entry.intersectionRatio >= 0.12);
+    });
+  }, {
+    root: detailGallery,
+    threshold: [0, 0.12, 0.3]
+  });
+
+  images.forEach((image) => detailGalleryObserver.observe(image));
+}
+
 detailGallery.addEventListener('scroll', syncDetailGalleryScrollbar);
 window.addEventListener('resize', syncDetailGalleryScrollbar);
 
@@ -293,6 +316,8 @@ projects.forEach((project) => {
 
 function openProject(project) {
   window.clearTimeout(detailRevealTimer);
+  detailGalleryObserver?.disconnect();
+  detailGalleryObserver = undefined;
   activeProject = project;
   const gallerySources = (project.dataset.gallery || '').split('|').filter(Boolean);
 
@@ -331,6 +356,7 @@ function openProject(project) {
         detailImage.hidden = true;
         detailGallery.hidden = false;
         detailGallery.scrollTop = 0;
+        setupDetailGalleryMotion();
         window.requestAnimationFrame(syncDetailGalleryScrollbar);
       }
       window.requestAnimationFrame(fitDetailTitle);
@@ -340,6 +366,8 @@ function openProject(project) {
 
 function closeProjectDetail() {
   window.clearTimeout(detailRevealTimer);
+  detailGalleryObserver?.disconnect();
+  detailGalleryObserver = undefined;
   detailGallery.hidden = true;
   detailGallery.replaceChildren();
   detailGalleryScrollbar.hidden = true;

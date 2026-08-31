@@ -437,6 +437,22 @@ body.is-intro-zoom .gallery--orbit .project {
   max-height:none;
   flex:0 0 auto;
   object-fit:contain;
+  opacity:.72;
+  transform:translateY(34px) scale(.965);
+  transform-origin:center center;
+  transition:transform 680ms cubic-bezier(.22, 1, .36, 1), opacity 520ms ease-out;
+  will-change:transform,opacity;
+}
+.project-detail.is-revealed:not(.is-video) .detail-media .detail-gallery img.is-gallery-visible {
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-detail.is-revealed:not(.is-video) .detail-media .detail-gallery img {
+    opacity:1;
+    transform:none;
+    transition:none;
+  }
 }
 @media (min-width:701px) {
   .project-detail.has-gallery.is-revealed:not(.is-video) .detail-media {
