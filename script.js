@@ -59,7 +59,7 @@ const translations = {
       collection: { title: 'collation', meta: 'UI/UX设计 / 2022.12', copy: '个人制作' },
       kiuso: { title: 'kiuso', meta: '3D，实物书', detailMeta: '3D，实物书|研究生毕业设计', copy: '个人制作|「Minamiku Art Next Collection 2026」出展|SICF Fukuoka2026出展' },
       island: { title: '漂浮岛屿', meta: '3D/2026.3', copy: '个人制作' },
-      monica: { title: '遇见莫妮卡', meta: '18min短片', detailMeta: '18min短片|大学毕业设计', copy: '3人主创团队|剪辑、同期录音、美术' },
+      monica: { title: '遇见莫妮卡', meta: '18min短片', detailMeta: '18min短片|本科毕业设计', copy: '3人主创团队|剪辑、同期录音、美术' },
       lili: { title: '里里', meta: '17min短片', copy: '7人主创团队/制片/美术/同期录音/调色' },
       smell: { title: '香料气味可视化', meta: '手工/2023', copy: '个人制作' },
       herGone: { title: '消失的她', meta: '互动动画', copy: '4人主创团队/人物形象设计/部分动画制作/项目进度管理/人物配音|获中国高等院校影视学会（CCAVA）学院奖-「动画-数字媒体作品单元」学生组二等奖' },
