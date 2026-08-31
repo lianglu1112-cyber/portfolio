@@ -9,7 +9,6 @@ const orbitReset = document.querySelector('.orbit-reset');
 const detail = document.querySelector('.project-detail');
 const detailMedia = document.querySelector('.detail-media');
 const detailImage = document.querySelector('#detail-image');
-const detailVideo = document.querySelector('#detail-video');
 const detailTitle = document.querySelector('#detail-title');
 const detailMeta = document.querySelector('#detail-meta');
 const detailCopy = document.querySelector('.detail-copy');
@@ -23,7 +22,6 @@ let currentLanguage = 'cn';
 let activeFilter = 'all';
 let activeProject = null;
 let detailRevealTimer;
-let detailVideoTimer;
 let returnedOrbitFrame;
 let mosaicEnterTimer;
 let returnLayoutFrame;
@@ -274,23 +272,15 @@ projects.forEach((project) => {
 
 function openProject(project) {
   window.clearTimeout(detailRevealTimer);
-  window.clearTimeout(detailVideoTimer);
   activeProject = project;
-  const isVideo = project.dataset.type === 'video';
 
   detailImage.src = project.dataset.src;
   detailImage.alt = project.querySelector('img').alt;
   detail.style.setProperty('--detail-cover', `url("${encodeURI(project.dataset.src)}")`);
   detailImage.hidden = false;
-  detailVideo.pause();
-  detailVideo.hidden = true;
-  if (isVideo) {
-    detailVideo.src = project.dataset.video;
-    detailVideo.load();
-  }
   updateDetailText(project);
   detailOriginal.hidden = false;
-  detail.classList.toggle('is-video', isVideo);
+  detail.classList.remove('is-video');
   detail.classList.toggle('is-portrait', project.dataset.orientation === 'portrait');
   detail.classList.add('is-open');
   detail.setAttribute('aria-hidden', 'false');
@@ -299,22 +289,12 @@ function openProject(project) {
     detailRevealTimer = window.setTimeout(() => {
       detail.classList.add('is-revealed');
       window.requestAnimationFrame(fitDetailTitle);
-      if (isVideo) {
-        detailVideoTimer = window.setTimeout(() => {
-          detailImage.hidden = true;
-          detailVideo.hidden = false;
-          detailVideo.currentTime = 0;
-          detailVideo.play().catch(() => {});
-        }, 900);
-      }
     }, 2000);
   });
 }
 
 function closeProjectDetail() {
   window.clearTimeout(detailRevealTimer);
-  window.clearTimeout(detailVideoTimer);
-  detailVideo.pause();
   detail.classList.remove('is-revealed');
   document.body.classList.remove('detail-open');
   window.setTimeout(() => {
