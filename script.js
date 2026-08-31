@@ -266,7 +266,7 @@ function applyLanguage(language) {
     project.querySelector('.project-meta span').textContent = projectText.meta;
     project.querySelector('.project-action').innerHTML = `${getText('viewWork')} <b>↗</b>`;
     const thumbnailSource = getProjectThumbnailSource(project);
-    if (thumbnailSource) project.querySelector(':scope > img').src = thumbnailSource;
+    if (thumbnailSource) project.querySelector('img').src = thumbnailSource;
     updateProjectHoverInfo(project, projectText);
   });
   languageButtons.forEach((button) => {
