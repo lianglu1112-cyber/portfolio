@@ -389,6 +389,37 @@ body.is-intro-zoom .gallery--orbit .project {
   max-height:100%;
   object-fit:contain;
 }
+.detail-gallery {
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:20px;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  padding:0 8px 0 0;
+  box-sizing:border-box;
+  scrollbar-gutter:stable;
+  scrollbar-width:thin;
+  scrollbar-color:#5e92bf transparent;
+}
+.detail-gallery::-webkit-scrollbar {
+  width:6px;
+}
+.detail-gallery::-webkit-scrollbar-thumb {
+  border-radius:99px;
+  background:#5e92bf;
+}
+.project-detail.is-revealed:not(.is-video) .detail-media .detail-gallery img {
+  display:block;
+  width:100%;
+  height:auto;
+  max-width:none;
+  max-height:none;
+  flex:0 0 auto;
+  object-fit:contain;
+}
 @media (max-width:700px) {
   .project-detail.is-revealed:not(.is-video) .detail-media {
     top:7vh;
