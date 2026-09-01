@@ -647,3 +647,25 @@ html, body, body * {
   --return-delay:490ms;
   --return-nudge:-25px;
 }
+
+/* 平铺展示中，按卡片当前位置展开对应的悬浮信息。 */
+.gallery--orbit.is-return-layout .project[data-project-id="island"] .project-hover-info {
+  left:calc(100% + 14px);
+  right:auto;
+  transform:translateY(-50%) translateX(-7px) rotateY(calc(0deg - var(--return-turn)));
+}
+.gallery--orbit.is-return-layout .project[data-project-id="collection"] .project-hover-info {
+  left:auto;
+  right:calc(100% + 14px);
+  transform:translateY(-50%) translateX(7px) rotateY(calc(0deg - var(--return-turn)));
+}
+.gallery--orbit.is-return-layout .project[data-project-id="island"]:hover .project-hover-info,
+.gallery--orbit.is-return-layout .project[data-project-id="island"]:focus .project-hover-info,
+.gallery--orbit.is-return-layout .project[data-project-id="island"]:focus-within .project-hover-info {
+  transform:translateY(-50%) translateX(0) rotateY(calc(0deg - var(--return-turn)));
+}
+.gallery--orbit.is-return-layout .project[data-project-id="collection"]:hover .project-hover-info,
+.gallery--orbit.is-return-layout .project[data-project-id="collection"]:focus .project-hover-info,
+.gallery--orbit.is-return-layout .project[data-project-id="collection"]:focus-within .project-hover-info {
+  transform:translateY(-50%) translateX(0) rotateY(calc(0deg - var(--return-turn)));
+}
