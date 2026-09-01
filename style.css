@@ -394,7 +394,7 @@ body.is-intro-zoom .gallery--orbit .project {
   height:100%;
   display:flex;
   flex-direction:column;
-  align-items:center;
+  align-items:stretch;
   gap:0;
   overflow-y:scroll;
   overscroll-behavior:contain;
@@ -489,8 +489,8 @@ body.is-intro-zoom .gallery--orbit .project {
 @media (min-width:701px) {
   .project-detail.has-gallery.is-revealed:not(.is-video) .detail-media {
     top:0;
-    left:4vw;
-    width:calc(96vw - min(31vw, 480px));
+    left:0;
+    width:calc(100vw - min(31vw, 480px));
     height:100vh;
   }
 }
@@ -500,6 +500,11 @@ body.is-intro-zoom .gallery--orbit .project {
     left:4vw;
     width:92vw;
     height:45svh;
+  }
+  .project-detail.has-gallery.is-revealed:not(.is-video) .detail-media {
+    top:0;
+    left:0;
+    width:100vw;
   }
 }
 
