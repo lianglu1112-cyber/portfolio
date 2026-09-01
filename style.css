@@ -569,3 +569,41 @@ html, body, body * {
   .header-controls { gap:13px; }
   .header-controls .filters { gap:11px; padding-right:13px; }
 }
+
+/* 平铺展示中重新编排四张作品卡片，其他圆环状态保持原位置。 */
+.gallery--orbit.is-return-layout .project[data-project-id="collection"] {
+  --return-x:74.5%;
+  --return-width:7.9vw;
+  --return-turn:-30deg;
+  --return-depth:50px;
+  --return-layer:6;
+  --return-delay:350ms;
+  --return-nudge:35px;
+}
+.gallery--orbit.is-return-layout .project[data-project-id="island"] {
+  --return-x:48.2%;
+  --return-width:2.8vw;
+  --return-turn:5deg;
+  --return-depth:-120px;
+  --return-layer:2;
+  --return-delay:70ms;
+  --return-nudge:-35px;
+}
+.gallery--orbit.is-return-layout .project[data-project-id="smell"] {
+  --return-x:51.8%;
+  --return-width:2.8vw;
+  --return-turn:-5deg;
+  --return-depth:-120px;
+  --return-layer:2;
+  --return-delay:70ms;
+  --return-nudge:35px;
+}
+.gallery--orbit.is-return-layout .project[data-project-id="blocks"] {
+  --return-x:60.4%;
+  --return-width:4.9vw;
+  --return-turn:-16deg;
+  --return-depth:-30px;
+  --return-layer:4;
+  --return-delay:210ms;
+  --return-nudge:35px;
+}

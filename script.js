@@ -67,7 +67,7 @@ const translations = {
       lili: { title: '里里', meta: '17min短片', copy: '7人主创团队|制片/美术/同期录音/调色' },
       smell: { title: '香料气味可视化', meta: '手工/2023', copy: '个人制作' },
       herGone: { title: '消失的她', meta: '互动动画', copy: '4人主创团队|人物形象设计/部分动画制作/项目进度管理/人物配音|获中国高等院校影视学会（CCAVA）学院奖-「动画-数字媒体作品单元」学生组二等奖' },
-      blocks: { title: '积木人生', meta: '1min公益广告', copy: '4人主创团队/导演|获中国高等院校影视学会（CCAVA）学院奖-短视频单元学生组三等奖' },
+      blocks: { title: '积木人生', meta: '1min公益广告', copy: '4人主创团队|导演|获中国高等院校影视学会（CCAVA）学院奖-短视频单元学生组三等奖' },
       foNext: { title: 'Fo-Next', meta: 'UI/UX设计 / 2023.3', copy: '个人制作' }
     }
   },
@@ -90,10 +90,10 @@ const translations = {
       kiuso: { title: 'kiuso', meta: '3D / Artist’s book', detailMeta: '3D / Artist’s book|Master’s graduation project', copy: 'Independent project|Exhibited at Minamiku Art Next Collection 2026|Exhibited at SICF Fukuoka 2026' },
       island: { title: 'Floating Island', meta: '3D / Mar. 2026', copy: 'Independent project' },
       monica: { title: 'Meet Monica', meta: '18-min short film', detailMeta: '18-min short film|Undergraduate graduation project', copy: 'Three-person core team|Editing / Production sound / Art direction' },
-      lili: { title: 'Lili', meta: '17-min short film', copy: 'Seven-person core team / Producer / Art direction / Production sound / Colour grading' },
+      lili: { title: 'Lili', meta: '17-min short film', copy: 'Seven-person core team|Producer / Art direction / Production sound / Colour grading' },
       smell: { title: 'Spice Scent Visualization', meta: 'Handcraft / 2023', copy: 'Independent project' },
-      herGone: { title: 'Her Gone', meta: 'Interactive animation', copy: 'Four-person core team / Character design / Partial animation / Production management / Voice acting|Second Prize, CCAVA Academy Award — Animation & Digital Media Student Category' },
-      blocks: { title: 'Building Block Life', meta: '1-min public service film', copy: 'Four-person core team / Director|Third Prize, CCAVA Academy Award — Short Video Student Category' },
+      herGone: { title: 'Her Gone', meta: 'Interactive animation', copy: 'Four-person core team|Character design / Partial animation / Production management / Voice acting|Second Prize, CCAVA Academy Award — Animation & Digital Media Student Category' },
+      blocks: { title: 'Building Block Life', meta: '1-min public service film', copy: 'Four-person core team|Director|Third Prize, CCAVA Academy Award — Short Video Student Category' },
       foNext: { title: 'Fo-Next', meta: 'UI/UX Design / Mar. 2023', copy: 'Independent project' }
     }
   },
@@ -116,10 +116,10 @@ const translations = {
       kiuso: { title: '木うそ', meta: '3D・実物書', detailMeta: '3D・実物書|大学院修了制作|制作中・随時更新', copy: '個人制作|「Minamiku Art Next Collection 2026」出展|SICF Fukuoka 2026 出展' },
       island: { title: '浮遊する島', meta: '3D / 2026.3', copy: '個人制作' },
       monica: { title: 'モニカとの出会い', meta: '映像 / 18分', detailMeta: '映像 / 18分|大学卒業制作', copy: '3人による主創チーム|編集・同期録音・美術' },
-      lili: { title: '里里', meta: '映像 / 17分', detailMeta: '映像 / 17分', copy: '7人による主創チーム / プロデューサー / 美術 / 同期録音 / カラーグレーディング' },
+      lili: { title: '里里', meta: '映像 / 17分', detailMeta: '映像 / 17分', copy: '7人による主創チーム|プロデューサー / 美術 / 同期録音 / カラーグレーディング' },
       smell: { title: '香料の香りの可視化', meta: '手作り / 2023', copy: '個人制作' },
-      herGone: { title: '消えた彼女', meta: '映像 / インタラクティブアニメーション', detailMeta: '映像 / インタラクティブアニメーション', copy: '4人による主創チーム / キャラクターデザイン / 一部アニメーション制作 / 進行管理 / 声優|中国高等院校映像学会（CCAVA）学院賞「アニメーション・デジタルメディア作品部門」学生組 二等賞' },
-      blocks: { title: '積み木人生', meta: '映像 / 1分公益広告', detailMeta: '映像 / 1分公益広告', copy: '4人による主創チーム / 監督|中国高等院校映像学会（CCAVA）学院賞・ショートビデオ部門 学生組 三等賞' },
+      herGone: { title: '消えた彼女', meta: '映像 / インタラクティブアニメーション', detailMeta: '映像 / インタラクティブアニメーション', copy: '4人による主創チーム|キャラクターデザイン / 一部アニメーション制作 / 進行管理 / 声優|中国高等院校映像学会（CCAVA）学院賞「アニメーション・デジタルメディア作品部門」学生組 二等賞' },
+      blocks: { title: '積み木人生', meta: '映像 / 1分公益広告', detailMeta: '映像 / 1分公益広告', copy: '4人による主創チーム|監督|中国高等院校映像学会（CCAVA）学院賞・ショートビデオ部門 学生組 三等賞' },
       foNext: { title: 'Fo-Next', meta: 'UI/UXデザイン / 2023.3', copy: '個人制作' }
     }
   }
