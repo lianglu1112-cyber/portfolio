@@ -170,7 +170,8 @@ function syncReturnedThumbnails() {
 }
 
 function populateDetailGallery(project, gallerySources) {
-  const galleryLabels = (project.dataset.galleryLabels || '').split('|');
+  const galleryLabels = (project.dataset[`${currentLanguage}GalleryLabels`] || project.dataset.galleryLabels || '').split('|');
+  detailGallery.classList.toggle('is-paired-gallery', project.dataset.galleryLayout === 'pairs');
   detailGallery.replaceChildren();
   gallerySources.forEach((source, index) => {
     const item = document.createElement('figure');
