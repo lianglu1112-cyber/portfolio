@@ -148,20 +148,25 @@ function getText(key) {
 }
 
 function getProjectPrimarySource(project) {
-  if (currentLanguage === 'cn' && project.dataset.cnSrc) return project.dataset.cnSrc;
-  return project.dataset.src;
+  return project.dataset[`${currentLanguage}Src`] || project.dataset.src;
 }
 
 function getProjectGallerySources(project) {
-  const gallery = currentLanguage === 'cn' && project.dataset.cnGallery
-    ? project.dataset.cnGallery
-    : project.dataset.gallery;
+  const gallery = project.dataset[`${currentLanguage}Gallery`] || project.dataset.gallery;
   return (gallery || '').split('|').filter(Boolean);
 }
 
 function getProjectThumbnailSource(project) {
-  if (currentLanguage === 'cn' && project.dataset.cnThumbnail) return project.dataset.cnThumbnail;
-  return project.dataset.thumbnail;
+  return project.dataset[`${currentLanguage}Thumbnail`] || project.dataset.thumbnail;
+}
+
+function syncReturnedThumbnails() {
+  const isReturned = orbit.classList.contains('is-return-layout');
+  projects.forEach((project) => {
+    if (!project.dataset.returnThumbnail) return;
+    const image = project.querySelector('img');
+    if (image) image.src = isReturned ? project.dataset.returnThumbnail : getProjectThumbnailSource(project);
+  });
 }
 
 function populateDetailGallery(project, gallerySources) {
@@ -277,23 +282,22 @@ function applyLanguage(language) {
   updateOrbitText();
   if (activeProject && detail.classList.contains('is-open')) {
     updateDetailText(activeProject);
-    if (activeProject.dataset.cnSrc || activeProject.dataset.cnGallery) {
-      const primarySource = getProjectPrimarySource(activeProject);
-      const gallerySources = getProjectGallerySources(activeProject);
-      detailImage.src = primarySource;
-      detailImage.alt = activeProject.querySelector('img').alt;
-      detail.style.setProperty('--detail-cover', `url("${encodeURI(primarySource)}")`);
-      if (detail.classList.contains('is-revealed') && gallerySources.length) {
-        populateDetailGallery(activeProject, gallerySources);
-        detailImage.hidden = true;
-        detailGallery.hidden = false;
-        detailGallery.scrollTop = 0;
-        setupDetailGalleryMotion();
-        window.requestAnimationFrame(syncDetailGalleryScrollbar);
-      }
+    const primarySource = getProjectPrimarySource(activeProject);
+    const gallerySources = getProjectGallerySources(activeProject);
+    detailImage.src = primarySource;
+    detailImage.alt = activeProject.querySelector('img').alt;
+    detail.style.setProperty('--detail-cover', `url("${encodeURI(primarySource)}")`);
+    if (detail.classList.contains('is-revealed') && gallerySources.length) {
+      populateDetailGallery(activeProject, gallerySources);
+      detailImage.hidden = true;
+      detailGallery.hidden = false;
+      detailGallery.scrollTop = 0;
+      setupDetailGalleryMotion();
+      window.requestAnimationFrame(syncDetailGalleryScrollbar);
     }
     window.requestAnimationFrame(fitDetailTitle);
   }
+  syncReturnedThumbnails();
   try { window.localStorage.setItem('portfolio-language', language); } catch (_) {}
 }
 
@@ -468,6 +472,7 @@ function resetOrbit() {
   orbit.classList.remove('is-zoomed', 'is-focusing');
   orbit.classList.remove('is-returned', 'is-melius-enter');
   orbit.classList.add('is-mosaic', 'is-return-layout', 'is-return-enter');
+  syncReturnedThumbnails();
   setOrbitScrollLocked(false);
   document.body.classList.remove('is-opening', 'is-intro-zoom', 'is-resetting', 'is-orbit-home');
   updateOrbitText();
@@ -483,6 +488,7 @@ function settleOnRing() {
   window.cancelAnimationFrame(returnedOrbitFrame);
   window.cancelAnimationFrame(returnLayoutFrame);
   orbit.classList.remove('is-returned', 'is-mosaic', 'is-return-layout', 'is-return-enter');
+  syncReturnedThumbnails();
   orbit.classList.remove('is-melius-enter');
   projects.forEach((project) => project.style.removeProperty('transform'));
   orbit.classList.add('is-zoomed', 'is-focusing');
