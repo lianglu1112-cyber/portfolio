@@ -590,6 +590,15 @@ html, body, body * {
   --return-nudge:-35px;
 }
 .gallery--orbit.is-return-layout .project[data-project-id="smell"] {
+  --return-x:74.5%;
+  --return-width:7.9vw;
+  --return-turn:-30deg;
+  --return-depth:50px;
+  --return-layer:6;
+  --return-delay:350ms;
+  --return-nudge:35px;
+}
+.gallery--orbit.is-return-layout .project[data-project-id="herGone"] {
   --return-x:51.8%;
   --return-width:2.8vw;
   --return-turn:-5deg;
