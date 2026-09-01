@@ -28,7 +28,7 @@ let activeProject = null;
 let detailRevealTimer;
 let detailVideoTimer;
 let detailGalleryObserver;
-const plainDetailProjects = new Set(['flower', 'woman', 'dream', 'skyMirror', 'future']);
+const plainDetailProjects = new Set(['flower', 'woman', 'dream', 'skyMirror', 'future', 'island']);
 let returnedOrbitFrame;
 let mosaicEnterTimer;
 let returnLayoutFrame;
@@ -51,7 +51,7 @@ const translations = {
     introTitle: '把感受<br />做成可见的形状。', introCopy: '三维、影像与手作之间，<br />寻找材料和情绪的临界点。', scrollWorks: '向下浏览',
     workTitle: '作品集', orbitLabel: '旋转作品环', orbitTitle: 'Works', workFilters: '作品分类筛选', filter3d: '3D', filterVideo: 'video', filterDesign: 'design', aboutEyebrow: 'About',
     contactEmail: 'lianglu1112@126.com', footerNote: 'Designed with intention',
-    closePreview: '关闭预览', closeDetail: '关闭作品详情', back: '返回', viewWork: '查看', viewImage: '查看原图', viewVideo: '查看视频', hoverName: '名称', hoverTime: '制作时间', hoverType: '类型', hoverMasterProject: '研究生毕业设计', hoverUndergraduateProject: '本科毕业设计', type3d: '3D', typeUiUx: 'UI/UX设计', type3dBook: '3D，实物书', typeFilm18: '18min短片', typeFilm17: '17min短片', typeHandcraft: '手工', typeInteractive: '互动动画', typePublicService: '1min公益广告',
+    closePreview: '关闭预览', closeDetail: '关闭作品详情', back: '返回', viewWork: '查看', viewImage: '查看原图', viewVideo: '查看视频', hoverName: '名称', hoverTime: '制作时间', hoverType: '类型', hoverMasterProject: '硕士毕业研究课题', hoverUndergraduateProject: '本科毕业设计', type3d: '3D', typeUiUx: 'UI/UX设计', type3dBook: '3D，实物书', typeFilm18: '18min短片', typeFilm17: '17min短片', typeHandcraft: '手工', typeInteractive: '互动动画', typePublicService: '1min公益广告',
     orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '焦点作品 · 点击任意作品查看详情',
     projects: {
       flower: { title: '花的轨道', meta: '2026.5', copy: '个人制作' },
@@ -61,7 +61,7 @@ const translations = {
       skyMirror: { title: '天空之镜', meta: '3D/2026.3', copy: '个人制作' },
       future: { title: '未来', meta: '3D/2026.3', copy: '个人制作' },
       collection: { title: 'collation', meta: 'UI/UX设计 / 2022.12', copy: '个人制作' },
-      kiuso: { title: 'kiuso', meta: '3D，实物书', detailMeta: '3D，实物书|研究生毕业设计', copy: '个人制作|「Minamiku Art Next Collection 2026」出展|SICF Fukuoka2026出展' },
+      kiuso: { title: 'kiuso', meta: '3D，实物书', detailMeta: '3D，实物书|硕士毕业研究课题', copy: '个人制作|「Minamiku Art Next Collection 2026」出展|SICF Fukuoka2026出展' },
       island: { title: '漂浮岛屿', meta: '3D/2026.3', copy: '个人制作' },
       monica: { title: '遇见莫妮卡', meta: '18min短片', detailMeta: '18min短片|本科毕业设计', copy: '3人主创团队|剪辑、同期录音、美术' },
       lili: { title: '里里', meta: '17min短片', copy: '7人主创团队|制片/美术/同期录音/调色' },
@@ -77,7 +77,7 @@ const translations = {
     introTitle: 'Giving feeling<br />a visible form.', introCopy: 'Between 3D, moving image and making,<br />I look for the threshold of material and emotion.', scrollWorks: 'Explore works',
     workTitle: 'Works', orbitLabel: 'Rotating work orbit', orbitTitle: 'Works', workFilters: 'Work filters', filter3d: '3D', filterVideo: 'video', filterDesign: 'design', aboutEyebrow: 'About',
     contactEmail: 'lianglu1112@126.com', footerNote: 'Designed with intention',
-    closePreview: 'Close preview', closeDetail: 'Close work detail', back: 'Back', viewWork: 'View', viewImage: 'View image', viewVideo: 'Watch film', hoverName: 'Title', hoverTime: 'Date', hoverType: 'Type', hoverMasterProject: 'Master’s graduation project', hoverUndergraduateProject: 'Undergraduate graduation project', type3d: '3D', typeUiUx: 'UI/UX Design', type3dBook: '3D / Physical book', typeFilm18: '18-min short film', typeFilm17: '17-min short film', typeHandcraft: 'Handcraft', typeInteractive: 'Interactive animation', typePublicService: '1-min public service film',
+    closePreview: 'Close preview', closeDetail: 'Close work detail', back: 'Back', viewWork: 'View', viewImage: 'View image', viewVideo: 'Watch film', hoverName: 'Title', hoverTime: 'Date', hoverType: 'Type', hoverMasterProject: 'Master’s graduation research project', hoverUndergraduateProject: 'Undergraduate graduation project', type3d: '3D', typeUiUx: 'UI/UX Design', type3dBook: '3D / Physical book', typeFilm18: '18-min short film', typeFilm17: '17-min short film', typeHandcraft: 'Handcraft', typeInteractive: 'Interactive animation', typePublicService: '1-min public service film',
     orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: 'Featured work · Select any work to view details',
     projects: {
       flower: { title: 'Flower Orbit', meta: 'May 2026', copy: 'Independent project' },
@@ -87,7 +87,7 @@ const translations = {
       skyMirror: { title: 'Mirror of the Sky', meta: '3D / Mar. 2026', copy: 'Independent project' },
       future: { title: 'Future', meta: '3D / Mar. 2026', copy: 'Independent project' },
       collection: { title: 'collation', meta: 'UI/UX Design / Dec. 2022', copy: 'Independent project' },
-      kiuso: { title: 'kiuso', meta: '3D / Artist’s book', detailMeta: '3D / Artist’s book|Master’s graduation project', copy: 'Independent project|Exhibited at Minamiku Art Next Collection 2026|Exhibited at SICF Fukuoka 2026' },
+      kiuso: { title: 'kiuso', meta: '3D / Artist’s book', detailMeta: '3D / Artist’s book|Master’s graduation research project', copy: 'Independent project|Exhibited at Minamiku Art Next Collection 2026|Exhibited at SICF Fukuoka 2026' },
       island: { title: 'Floating Island', meta: '3D / Mar. 2026', copy: 'Independent project' },
       monica: { title: 'Meet Monica', meta: '18-min short film', detailMeta: '18-min short film|Undergraduate graduation project', copy: 'Three-person core team|Editing / Production sound / Art direction' },
       lili: { title: 'Lili', meta: '17-min short film', copy: 'Seven-person core team|Producer / Art direction / Production sound / Colour grading' },
@@ -103,7 +103,7 @@ const translations = {
     introTitle: '感覚を<br />見えるかたちに。', introCopy: '3D、映像、手作りのあいだで、<br />素材と感情の境界を探しています。', scrollWorks: '作品を見る',
     workTitle: '作品集', orbitLabel: '回転する作品リング', orbitTitle: 'Works', workFilters: '作品カテゴリー', filter3d: '3D', filterVideo: '映像', filterDesign: 'デザイン', aboutEyebrow: 'About',
     contactEmail: 'lianglu1112@gmail.com', footerNote: 'Designed with intention',
-    closePreview: 'プレビューを閉じる', closeDetail: '作品詳細を閉じる', back: '戻る', viewWork: '見る', viewImage: '画像を見る', viewVideo: '映像を見る', hoverName: '作品名', hoverTime: '制作時期', hoverType: '種類', hoverMasterProject: '大学院修了制作', hoverUndergraduateProject: '大学卒業制作', hoverWorkInProgress: '制作中・随時更新', type3d: '3D', typeUiUx: 'UI/UXデザイン', type3dBook: '3D・実物書', typeFilm18: '映像', typeFilm17: '映像', typeHandcraft: '手作り', typeInteractive: 'インタラクティブアニメーション', typePublicService: '映像',
+    closePreview: 'プレビューを閉じる', closeDetail: '作品詳細を閉じる', back: '戻る', viewWork: '見る', viewImage: '画像を見る', viewVideo: '映像を見る', hoverName: '作品名', hoverTime: '制作時期', hoverType: '種類', hoverMasterProject: '修士修了研究', hoverUndergraduateProject: '大学卒業制作', hoverWorkInProgress: '制作中・随時更新', type3d: '3D', typeUiUx: 'UI/UXデザイン', type3dBook: '3D・実物書', typeFilm18: '映像', typeFilm17: '映像', typeHandcraft: '手作り', typeInteractive: 'インタラクティブアニメーション', typePublicService: '映像',
     orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '注目作品 · 作品を選択して詳細を見る',
     projects: {
       flower: { title: '花の軌道', meta: '2026.5', copy: '個人制作' },
@@ -113,7 +113,7 @@ const translations = {
       skyMirror: { title: '空の鏡', meta: '3D / 2026.3', copy: '個人制作' },
       future: { title: '未来', meta: '3D / 2026.3', copy: '個人制作' },
       collection: { title: 'collation', meta: 'UI/UXデザイン / 2022.12', copy: '個人制作' },
-      kiuso: { title: '木うそ', meta: '3D・実物書', detailMeta: '3D・実物書|大学院修了制作|制作中・随時更新', copy: '個人制作|「Minamiku Art Next Collection 2026」出展|SICF Fukuoka 2026 出展' },
+      kiuso: { title: '木うそ', meta: '3D・実物書', detailMeta: '3D・実物書|修士修了研究|制作中・随時更新', copy: '個人制作|「Minamiku Art Next Collection 2026」出展|SICF Fukuoka 2026 出展' },
       island: { title: '浮遊する島', meta: '3D / 2026.3', copy: '個人制作' },
       monica: { title: 'モニカとの出会い', meta: '映像 / 18分', detailMeta: '映像 / 18分|大学卒業制作', copy: '3人による主創チーム|編集・同期録音・美術' },
       lili: { title: '里里', meta: '映像 / 17分', detailMeta: '映像 / 17分', copy: '7人による主創チーム|プロデューサー / 美術 / 同期録音 / カラーグレーディング' },

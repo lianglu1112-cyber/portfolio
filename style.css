@@ -607,3 +607,23 @@ html, body, body * {
   --return-delay:280ms;
   --return-nudge:35px;
 }
+
+/* 平铺展示中交换手心鱼梦与花的轨道的位置。 */
+.gallery--orbit.is-return-layout .project[data-project-id="flower"] {
+  --return-x:25.5%;
+  --return-width:7.9vw;
+  --return-turn:30deg;
+  --return-depth:50px;
+  --return-layer:6;
+  --return-delay:350ms;
+  --return-nudge:-35px;
+}
+.gallery--orbit.is-return-layout .project[data-project-id="palmFish"] {
+  --return-x:6.5%;
+  --return-width:11.2vw;
+  --return-turn:45deg;
+  --return-depth:150px;
+  --return-layer:8;
+  --return-delay:490ms;
+  --return-nudge:-10px;
+}
