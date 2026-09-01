@@ -160,6 +160,11 @@ function getProjectThumbnailSource(project) {
   return project.dataset[`${currentLanguage}Thumbnail`] || project.dataset.thumbnail;
 }
 
+function getProjectExternalLink(project) {
+  const isVideo = project.dataset.type === 'video';
+  return project.dataset[`${currentLanguage}External`] || project.dataset.external || (isVideo ? project.dataset.video : project.dataset.src);
+}
+
 function syncReturnedThumbnails() {
   const isReturned = orbit.classList.contains('is-return-layout');
   projects.forEach((project) => {
@@ -201,7 +206,7 @@ function updateDetailText(project) {
   detailTitle.textContent = project.dataset.title;
   detailMeta.textContent = (project.dataset.detailMeta || project.querySelector('.project-meta span').textContent).replaceAll('|', '\n');
   detailCopy.textContent = (project.dataset.detailCopy || getText('independentProject') || '个人制作').replaceAll('|', '\n');
-  detailOriginal.href = project.dataset.external || (isVideo ? project.dataset.video : project.dataset.src);
+  detailOriginal.href = getProjectExternalLink(project);
   detailOriginal.innerHTML = `${getText(isVideo ? 'viewVideo' : 'viewImage')} <span>↗</span>`;
 }
 
