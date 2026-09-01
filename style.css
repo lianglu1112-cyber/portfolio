@@ -572,12 +572,12 @@ html, body, body * {
 
 /* 平铺展示中重新编排四张作品卡片，其他圆环状态保持原位置。 */
 .gallery--orbit.is-return-layout .project[data-project-id="collection"] {
-  --return-x:74.5%;
-  --return-width:7.9vw;
-  --return-turn:-30deg;
-  --return-depth:50px;
-  --return-layer:6;
-  --return-delay:350ms;
+  --return-x:83.5%;
+  --return-width:9.5vw;
+  --return-turn:-37deg;
+  --return-depth:95px;
+  --return-layer:7;
+  --return-delay:420ms;
   --return-nudge:35px;
 }
 .gallery--orbit.is-return-layout .project[data-project-id="island"] {
@@ -599,11 +599,11 @@ html, body, body * {
   --return-nudge:35px;
 }
 .gallery--orbit.is-return-layout .project[data-project-id="blocks"] {
-  --return-x:60.4%;
-  --return-width:4.9vw;
-  --return-turn:-16deg;
-  --return-depth:-30px;
-  --return-layer:4;
-  --return-delay:210ms;
+  --return-x:66.8%;
+  --return-width:6.3vw;
+  --return-turn:-23deg;
+  --return-depth:10px;
+  --return-layer:5;
+  --return-delay:280ms;
   --return-nudge:35px;
 }
