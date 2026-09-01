@@ -196,22 +196,22 @@ body.is-intro-zoom .gallery--orbit .project {
 .gallery--orbit.is-return-layout .project:nth-child(14) { --return-nudge:25px; }
 .gallery--orbit.is-return-layout .project { width:calc(var(--return-width) * 3); }
 
-/* Final returned layout: the two end cards and centred kiuso remain fixed. */
-.gallery--orbit.is-return-layout .project:nth-child(1) { --return-nudge:-10px; }
+/* Final returned layout: keep kiuso fixed and open 15px more space on both sides. */
+.gallery--orbit.is-return-layout .project:nth-child(1) { --return-nudge:-25px; }
 .gallery--orbit.is-return-layout .project:nth-child(2),
 .gallery--orbit.is-return-layout .project:nth-child(3),
 .gallery--orbit.is-return-layout .project:nth-child(4),
 .gallery--orbit.is-return-layout .project:nth-child(5),
 .gallery--orbit.is-return-layout .project:nth-child(6),
-.gallery--orbit.is-return-layout .project:nth-child(7) { --return-nudge:-35px; }
+.gallery--orbit.is-return-layout .project:nth-child(7) { --return-nudge:-50px; }
 .gallery--orbit.is-return-layout .project:nth-child(8) { --return-nudge:0px; }
 .gallery--orbit.is-return-layout .project:nth-child(9),
 .gallery--orbit.is-return-layout .project:nth-child(10),
 .gallery--orbit.is-return-layout .project:nth-child(11),
 .gallery--orbit.is-return-layout .project:nth-child(12),
 .gallery--orbit.is-return-layout .project:nth-child(13),
-.gallery--orbit.is-return-layout .project:nth-child(14) { --return-nudge:35px; }
-.gallery--orbit.is-return-layout .project:nth-child(15) { --return-nudge:10px; }
+.gallery--orbit.is-return-layout .project:nth-child(14) { --return-nudge:50px; }
+.gallery--orbit.is-return-layout .project:nth-child(15) { --return-nudge:25px; }
 .gallery--orbit.is-return-layout .project { width:calc(var(--return-width) * 3); }
 
 /* Returned-layout hover metadata: left cards open to the right, right cards to the left. */
@@ -589,7 +589,7 @@ html, body, body * {
   --return-depth:95px;
   --return-layer:7;
   --return-delay:420ms;
-  --return-nudge:35px;
+  --return-nudge:50px;
 }
 .gallery--orbit.is-return-layout .project[data-project-id="island"] {
   --return-x:48.2%;
@@ -598,7 +598,7 @@ html, body, body * {
   --return-depth:-120px;
   --return-layer:2;
   --return-delay:70ms;
-  --return-nudge:-35px;
+  --return-nudge:-50px;
 }
 .gallery--orbit.is-return-layout .project[data-project-id="smell"] {
   --return-x:74.5%;
@@ -607,7 +607,7 @@ html, body, body * {
   --return-depth:50px;
   --return-layer:6;
   --return-delay:350ms;
-  --return-nudge:35px;
+  --return-nudge:50px;
 }
 .gallery--orbit.is-return-layout .project[data-project-id="herGone"] {
   --return-x:51.8%;
@@ -616,7 +616,7 @@ html, body, body * {
   --return-depth:-120px;
   --return-layer:2;
   --return-delay:70ms;
-  --return-nudge:35px;
+  --return-nudge:50px;
 }
 .gallery--orbit.is-return-layout .project[data-project-id="blocks"] {
   --return-x:66.8%;
@@ -625,7 +625,7 @@ html, body, body * {
   --return-depth:10px;
   --return-layer:5;
   --return-delay:280ms;
-  --return-nudge:35px;
+  --return-nudge:50px;
 }
 
 /* 平铺展示中交换手心鱼梦与花的轨道的位置。 */
@@ -636,7 +636,7 @@ html, body, body * {
   --return-depth:50px;
   --return-layer:6;
   --return-delay:350ms;
-  --return-nudge:-35px;
+  --return-nudge:-50px;
 }
 .gallery--orbit.is-return-layout .project[data-project-id="palmFish"] {
   --return-x:6.5%;
@@ -645,5 +645,5 @@ html, body, body * {
   --return-depth:150px;
   --return-layer:8;
   --return-delay:490ms;
-  --return-nudge:-10px;
+  --return-nudge:-25px;
 }
