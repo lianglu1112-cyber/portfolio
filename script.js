@@ -160,6 +160,21 @@ function getProjectThumbnailSource(project) {
   return project.dataset[`${currentLanguage}Thumbnail`] || project.dataset.thumbnail;
 }
 
+function setProjectThumbnailSource(project, source) {
+  const image = project.querySelector('img');
+  if (!image || !source) return;
+
+  image.src = source;
+  const mobileSource = project.querySelector('picture source[media="(max-width: 700px)"]');
+  if (!mobileSource) return;
+
+  if (source.startsWith('assets/thumbs/')) {
+    mobileSource.srcset = source.replace('assets/thumbs/', 'assets/thumbs/mobile/');
+  } else {
+    mobileSource.removeAttribute('srcset');
+  }
+}
+
 function getProjectExternalLink(project) {
   const isVideo = project.dataset.type === 'video';
   return project.dataset[`${currentLanguage}External`] || project.dataset.external || (isVideo ? project.dataset.video : project.dataset.src);
@@ -169,8 +184,7 @@ function syncReturnedThumbnails() {
   const isReturned = orbit.classList.contains('is-return-layout');
   projects.forEach((project) => {
     if (!project.dataset.returnThumbnail) return;
-    const image = project.querySelector('img');
-    if (image) image.src = isReturned ? project.dataset.returnThumbnail : getProjectThumbnailSource(project);
+    setProjectThumbnailSource(project, isReturned ? project.dataset.returnThumbnail : getProjectThumbnailSource(project));
   });
 }
 
@@ -184,7 +198,9 @@ function populateDetailGallery(project, gallerySources) {
     const image = document.createElement('img');
     image.src = source;
     image.alt = `${project.dataset.title} 图片 ${index + 1}`;
-    image.loading = 'eager';
+    image.loading = index === 0 ? 'eager' : 'lazy';
+    image.decoding = 'async';
+    image.fetchPriority = index === 0 ? 'high' : 'low';
     image.addEventListener('load', syncDetailGalleryScrollbar, { once:true });
     item.append(image);
 
@@ -276,8 +292,7 @@ function applyLanguage(language) {
     project.querySelector('.project-meta p').textContent = projectText.title;
     project.querySelector('.project-meta span').textContent = projectText.meta;
     project.querySelector('.project-action').innerHTML = `${getText('viewWork')} <b>↗</b>`;
-    const thumbnailSource = getProjectThumbnailSource(project);
-    if (thumbnailSource) project.querySelector('img').src = thumbnailSource;
+    setProjectThumbnailSource(project, getProjectThumbnailSource(project));
     updateProjectHoverInfo(project, projectText);
   });
   languageButtons.forEach((button) => {
