@@ -227,13 +227,13 @@ body.is-intro-zoom .gallery--orbit .project {
   box-sizing:border-box;
   padding:12px 13px;
   color:var(--ink);
-  background:color-mix(in srgb,var(--paper) 30%,transparent);
-  border:0;
-  box-shadow:0 12px 30px rgba(18,16,12,.12);
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:0 12px 30px rgba(18,16,12,.12),inset 0 1px 0 rgba(255,255,255,.35);
   opacity:0;
   pointer-events:none;
-  -webkit-backdrop-filter:blur(12px);
-  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px) saturate(125%);
+  backdrop-filter:blur(12px) saturate(125%);
   transition:opacity .2s ease,transform .24s cubic-bezier(.2,.8,.2,1);
 }
 .gallery--orbit.is-return-layout .project-hover-title { margin:0 0 10px; }
