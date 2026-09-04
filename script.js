@@ -153,7 +153,8 @@ function getProjectPrimarySource(project) {
 
 function getProjectGallerySources(project) {
   const gallery = project.dataset[`${currentLanguage}Gallery`] || project.dataset.gallery;
-  return (gallery || '').split('|').filter(Boolean);
+  const firstImage = project.dataset[`${currentLanguage}GalleryFirst`] || project.dataset.galleryFirst;
+  return [firstImage, ...(gallery || '').split('|')].filter(Boolean);
 }
 
 function getProjectThumbnailSource(project) {
