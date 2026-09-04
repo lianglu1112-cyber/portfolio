@@ -189,6 +189,32 @@ function syncReturnedThumbnails() {
   });
 }
 
+function openImagePreview(source, alt) {
+  if (!source) return;
+  dialogImage.src = source;
+  dialogImage.alt = alt || '';
+  dialogTitle.textContent = alt || '';
+  if (!dialog.open) dialog.showModal();
+}
+
+function makeDetailImagePreviewable(image) {
+  image.classList.add('detail-image-previewable');
+  image.tabIndex = 0;
+  image.setAttribute('role', 'button');
+  image.setAttribute('aria-label', `${image.alt || '图片'}：查看原尺寸`);
+  if (image.dataset.previewable === 'true') return;
+  image.dataset.previewable = 'true';
+  image.addEventListener('click', (event) => {
+    event.stopPropagation();
+    openImagePreview(image.currentSrc || image.src, image.alt);
+  });
+  image.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    openImagePreview(image.currentSrc || image.src, image.alt);
+  });
+}
+
 function populateDetailGallery(project, gallerySources) {
   const galleryLabels = (project.dataset[`${currentLanguage}GalleryLabels`] || project.dataset.galleryLabels || '').split('|');
   detailGallery.classList.toggle('is-paired-gallery', project.dataset.galleryLayout === 'pairs');
@@ -203,6 +229,7 @@ function populateDetailGallery(project, gallerySources) {
     image.decoding = 'async';
     image.fetchPriority = index === 0 ? 'high' : 'low';
     image.addEventListener('load', syncDetailGalleryScrollbar, { once:true });
+    makeDetailImagePreviewable(image);
     item.append(image);
 
     const label = galleryLabels[index];
@@ -422,6 +449,7 @@ function openProject(project) {
 
   detailImage.src = primarySource;
   detailImage.alt = project.querySelector('img').alt;
+  makeDetailImagePreviewable(detailImage);
   detail.style.setProperty('--detail-cover', `url("${encodeURI(primarySource)}")`);
   detailImage.hidden = false;
   if (hasEmbeddedVideo) {
@@ -555,6 +583,7 @@ document.addEventListener('click', (event) => {
   applyFilter(button.dataset.filter);
 });
 document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && dialog.open) return;
   if (event.key === 'Escape' && detail.classList.contains('is-open')) {
     closeProjectDetail();
   } else if (event.key === 'Escape' && orbit.classList.contains('is-zoomed') && !dialog.open) {
