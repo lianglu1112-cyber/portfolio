@@ -2,6 +2,8 @@ const projects = document.querySelectorAll('.project');
 const dialog = document.querySelector('.lightbox');
 const dialogImage = document.querySelector('#lightbox-image');
 const dialogTitle = document.querySelector('#lightbox-title');
+const lightboxPrevious = document.querySelector('#lightbox-previous');
+const lightboxNext = document.querySelector('#lightbox-next');
 const orbit = document.querySelector('.gallery--orbit');
 const orbitName = document.querySelector('#orbit-name');
 const orbitMeta = document.querySelector('#orbit-meta');
@@ -195,15 +197,30 @@ function openImagePreview(source, alt) {
   dialogImage.alt = alt || '';
   dialogTitle.textContent = alt || '';
   if (!dialog.open) dialog.showModal();
+  updateImagePreviewNavigation();
 }
 
-function changeImagePreview(direction) {
-  if (!activeProject) return;
+function getImagePreviewPosition() {
+  if (!activeProject) return { gallerySources: [], currentIndex: -1 };
   const gallerySources = getProjectGallerySources(activeProject);
-  if (!gallerySources.length) return;
+  if (!gallerySources.length) return { gallerySources, currentIndex: -1 };
 
   const currentSource = new URL(dialogImage.currentSrc || dialogImage.src, document.baseURI).href;
   const currentIndex = gallerySources.findIndex((source) => new URL(source, document.baseURI).href === currentSource);
+  return { gallerySources, currentIndex };
+}
+
+function updateImagePreviewNavigation() {
+  const { gallerySources, currentIndex } = getImagePreviewPosition();
+  const canNavigate = gallerySources.length > 1 && currentIndex >= 0;
+  lightboxPrevious.hidden = !canNavigate;
+  lightboxNext.hidden = !canNavigate;
+  lightboxPrevious.disabled = !canNavigate || currentIndex === 0;
+  lightboxNext.disabled = !canNavigate || currentIndex === gallerySources.length - 1;
+}
+
+function changeImagePreview(direction) {
+  const { gallerySources, currentIndex } = getImagePreviewPosition();
   const nextIndex = currentIndex + direction;
   if (currentIndex < 0 || nextIndex < 0 || nextIndex >= gallerySources.length) return;
 
@@ -609,6 +626,8 @@ document.addEventListener('keydown', (event) => {
   }
 });
 document.querySelector('.close').addEventListener('click', () => dialog.close());
+lightboxPrevious.addEventListener('click', () => changeImagePreview(-1));
+lightboxNext.addEventListener('click', () => changeImagePreview(1));
 dialog.addEventListener('click', (event) => {
   if (event.target === dialog) dialog.close();
 });
