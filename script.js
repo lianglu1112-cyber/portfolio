@@ -201,7 +201,7 @@ function makeDetailImagePreviewable(image) {
   image.classList.add('detail-image-previewable');
   image.tabIndex = 0;
   image.setAttribute('role', 'button');
-  image.setAttribute('aria-label', `${image.alt || '图片'}：查看原尺寸`);
+  image.setAttribute('aria-label', `${image.alt || '图片'}：放大查看`);
   if (image.dataset.previewable === 'true') return;
   image.dataset.previewable = 'true';
   image.addEventListener('click', (event) => {
