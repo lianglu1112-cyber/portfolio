@@ -197,6 +197,19 @@ function openImagePreview(source, alt) {
   if (!dialog.open) dialog.showModal();
 }
 
+function changeImagePreview(direction) {
+  if (!activeProject) return;
+  const gallerySources = getProjectGallerySources(activeProject);
+  if (!gallerySources.length) return;
+
+  const currentSource = new URL(dialogImage.currentSrc || dialogImage.src, document.baseURI).href;
+  const currentIndex = gallerySources.findIndex((source) => new URL(source, document.baseURI).href === currentSource);
+  const nextIndex = currentIndex + direction;
+  if (currentIndex < 0 || nextIndex < 0 || nextIndex >= gallerySources.length) return;
+
+  openImagePreview(gallerySources[nextIndex], `${activeProject.dataset.title} 图片 ${nextIndex + 1}`);
+}
+
 function makeDetailImagePreviewable(image) {
   image.classList.add('detail-image-previewable');
   image.tabIndex = 0;
@@ -583,6 +596,11 @@ document.addEventListener('click', (event) => {
   applyFilter(button.dataset.filter);
 });
 document.addEventListener('keydown', (event) => {
+  if (dialog.open && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
+    event.preventDefault();
+    changeImagePreview(event.key === 'ArrowLeft' ? -1 : 1);
+    return;
+  }
   if (event.key === 'Escape' && dialog.open) return;
   if (event.key === 'Escape' && detail.classList.contains('is-open')) {
     closeProjectDetail();
