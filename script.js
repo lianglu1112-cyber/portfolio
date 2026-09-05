@@ -1,7 +1,6 @@
 const projects = document.querySelectorAll('.project');
 const dialog = document.querySelector('.lightbox');
 const dialogImage = document.querySelector('#lightbox-image');
-const dialogTitle = document.querySelector('#lightbox-title');
 const lightboxPrevious = document.querySelector('#lightbox-previous');
 const lightboxNext = document.querySelector('#lightbox-next');
 const orbit = document.querySelector('.gallery--orbit');
@@ -195,7 +194,6 @@ function openImagePreview(source, alt) {
   if (!source) return;
   dialogImage.src = source;
   dialogImage.alt = alt || '';
-  dialogTitle.textContent = alt || '';
   if (!dialog.open) dialog.showModal();
   updateImagePreviewNavigation();
 }
