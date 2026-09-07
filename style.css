@@ -678,3 +678,34 @@ html, body, body * {
 .gallery--orbit.is-return-layout .project {
   top:calc(50% - 5px);
 }
+
+/* 手机端开场提示。 */
+.mobile-viewing-note {
+  display:none;
+}
+@media (max-width:700px) {
+  .mobile-viewing-note {
+    position:absolute;
+    z-index:4;
+    top:calc(50% + 38px);
+    left:50%;
+    width:max-content;
+    max-width:calc(100vw - 40px);
+    margin:0;
+    padding:8px 11px;
+    color:rgba(16,16,16,.68);
+    border:1px solid rgba(16,16,16,.14);
+    border-radius:999px;
+    background:rgba(252,252,252,.72);
+    font:11px/1.35 var(--mono);
+    text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transform:translate(-50%,-4px);
+    transition:opacity .45s ease,transform .45s ease;
+  }
+  body.is-opening .mobile-viewing-note {
+    opacity:1;
+    transform:translate(-50%,0);
+  }
+}

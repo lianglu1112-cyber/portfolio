@@ -53,7 +53,7 @@ const translations = {
     workTitle: '作品集', orbitLabel: '旋转作品环', orbitTitle: 'Works', workFilters: '作品分类筛选', filter3d: '3D', filterVideo: 'VIDEO', filterDesign: 'DESIGN', aboutEyebrow: 'About',
     contactEmail: 'lianglu1112@126.com', footerNote: 'Designed with intention',
     closePreview: '关闭预览', closeDetail: '关闭作品详情', back: '返回', viewWork: '查看', viewImage: '查看原图', viewVideo: '查看视频', hoverName: '名称', hoverTime: '制作时间', hoverType: '类型', hoverMasterProject: '硕士毕业研究课题', hoverUndergraduateProject: '本科毕业设计', type3d: '3D', typeUiUx: 'UI/UX设计', type3dBook: '3D，实物书', typeFilm18: '18min短片', typeFilm17: '17min短片', typeHandcraft: '手工', typeInteractive: '互动动画', typePublicService: '1min公益广告',
-    orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '焦点作品 · 点击任意作品查看详情',
+    orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '焦点作品 · 点击任意作品查看详情', mobileViewingNote: '建议使用电脑端观看',
     projects: {
       flower: { title: '花的轨道', meta: '2026.5', copy: '个人制作' },
       woman: { title: '女', meta: '3D/2026.6', copy: '个人制作' },
@@ -79,7 +79,7 @@ const translations = {
     workTitle: 'Works', orbitLabel: 'Rotating work orbit', orbitTitle: 'Works', workFilters: 'Work filters', filter3d: '3D', filterVideo: 'VIDEO', filterDesign: 'DESIGN', aboutEyebrow: 'About',
     contactEmail: 'lianglu1112@126.com', footerNote: 'Designed with intention',
     closePreview: 'Close preview', closeDetail: 'Close work detail', back: 'Back', viewWork: 'View', viewImage: 'View image', viewVideo: 'Watch film', hoverName: 'Title', hoverTime: 'Date', hoverType: 'Type', hoverMasterProject: 'Master’s graduation research project', hoverUndergraduateProject: 'Undergraduate graduation project', type3d: '3D', typeUiUx: 'UI/UX Design', type3dBook: '3D / Physical book', typeFilm18: '18-min short film', typeFilm17: '17-min short film', typeHandcraft: 'Handcraft', typeInteractive: 'Interactive animation', typePublicService: '1-min public service film',
-    orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: 'Featured work · Select any work to view details',
+    orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: 'Featured work · Select any work to view details', mobileViewingNote: 'For the best experience, please view on a desktop.',
     projects: {
       flower: { title: 'Flower Orbit', meta: 'May 2026', copy: 'Independent project' },
       woman: { title: 'Woman', meta: '3D / Jun. 2026', copy: 'Independent project' },
@@ -105,7 +105,7 @@ const translations = {
     workTitle: '作品集', orbitLabel: '回転する作品リング', orbitTitle: 'Works', workFilters: '作品カテゴリー', filter3d: '3D', filterVideo: 'VIDEO', filterDesign: 'DESIGN', aboutEyebrow: 'About',
     contactEmail: 'lianglu1112@gmail.com', footerNote: 'Designed with intention',
     closePreview: 'プレビューを閉じる', closeDetail: '作品詳細を閉じる', back: '戻る', viewWork: '見る', viewImage: '画像を見る', viewVideo: '映像を見る', hoverName: '作品名', hoverTime: '制作時期', hoverType: '種類', hoverMasterProject: '修士修了研究', hoverUndergraduateProject: '大学卒業制作', hoverWorkInProgress: '制作中・随時更新', type3d: '3D', typeUiUx: 'UI/UXデザイン', type3dBook: '3D・実物書', typeFilm18: '映像', typeFilm17: '映像', typeHandcraft: '手作り', typeInteractive: 'インタラクティブアニメーション', typePublicService: '映像',
-    orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '注目作品 · 作品を選択して詳細を見る',
+    orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '注目作品 · 作品を選択して詳細を見る', mobileViewingNote: 'より快適にご覧いただくため、パソコンでの閲覧をおすすめします。',
     projects: {
       flower: { title: '花の軌道', meta: '2026.5', copy: '個人制作' },
       woman: { title: '女', meta: '3D / 2026.6', copy: '個人制作' },
