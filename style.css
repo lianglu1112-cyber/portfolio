@@ -683,33 +683,10 @@ html, body, body * {
   transform:perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin));
 }
 .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned)::before {
-  content:"";
-  position:absolute;
-  z-index:0;
-  top:50%;
-  left:50%;
-  width:min(72vw,920px);
-  aspect-ratio:1;
-  border:1px solid rgba(16,16,16,.34);
-  border-radius:50%;
-  background:radial-gradient(circle,transparent 64.7%,rgba(255,255,255,.72) 65%,rgba(16,16,16,.14) 65.4%,transparent 66.1%);
-  box-shadow:0 0 0 8px rgba(16,16,16,.035),inset 0 0 18px rgba(255,255,255,.9),0 24px 38px rgba(16,16,12,.14);
-  pointer-events:none;
-  transform:translate(-50%,-50%) translateZ(-52px);
+  display:none;
 }
 .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned)::after {
-  content:"";
-  position:absolute;
-  z-index:0;
-  top:50%;
-  left:50%;
-  width:min(72vw,920px);
-  aspect-ratio:1;
-  border:1px solid rgba(255,255,255,.92);
-  border-radius:50%;
-  box-shadow:0 0 0 1px rgba(16,16,16,.08);
-  pointer-events:none;
-  transform:translate(-50%,-50%) translateZ(-64px) scale(.965);
+  display:none;
 }
 .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) .project {
   z-index:1;
@@ -717,6 +694,8 @@ html, body, body * {
   transform-style:preserve-3d;
 }
 .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) .project-inner {
+  -webkit-transform:translateZ(0) rotate(calc(0deg - var(--orbit-spin))) rotateZ(calc(0deg - var(--orbit-slope))) rotateX(calc(0deg - var(--orbit-tilt)));
+  transform:translateZ(0) rotate(calc(0deg - var(--orbit-spin))) rotateZ(calc(0deg - var(--orbit-slope))) rotateX(calc(0deg - var(--orbit-tilt)));
   box-shadow:0 12px 28px rgba(18,16,12,.2);
 }
 .gallery--orbit.is-zoomed:not(.is-mosaic):not(.is-return-layout):not(.is-returned) {
@@ -741,9 +720,5 @@ html, body, body * {
   .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) {
     --orbit-tilt:48deg;
     --orbit-slope:-7deg;
-  }
-  .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned)::before,
-  .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned)::after {
-    width:min(90vw,490px);
   }
 }
