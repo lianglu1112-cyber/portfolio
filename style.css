@@ -674,13 +674,14 @@ html, body, body * {
   transform:translateY(-50%) translateX(0) rotateY(calc(0deg - var(--return-turn)));
 }
 
-/* 开场作品环：将平面圆环转换为带透视的倾斜 3D 轨道。 */
+/* 开场作品环：竖直卡片沿倾斜的 3D 空间圆周环绕。 */
 .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) {
-  --orbit-tilt:54deg;
-  --orbit-slope:-10deg;
+  --orbit-tilt:-25deg;
+  --orbit-slope:-8deg;
   perspective:1800px;
+  perspective-origin:50% 45%;
   transform-style:preserve-3d;
-  transform:perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin));
+  transform:rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotateY(var(--orbit-spin));
 }
 .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned)::before {
   display:none;
@@ -689,36 +690,36 @@ html, body, body * {
   display:none;
 }
 .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) .project {
-  z-index:1;
-  transform:translate(-50%,-50%) rotate(var(--angle)) translateY(calc(var(--radius) * -1)) rotate(calc(var(--angle) * -1)) translateZ(20px);
+  z-index:auto;
+  transform:translate(-50%,-50%) rotateY(var(--angle)) translateZ(var(--radius)) rotateY(calc(0deg - var(--angle)));
   transform-style:preserve-3d;
 }
 .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) .project-inner {
-  -webkit-transform:translateZ(0) rotate(calc(0deg - var(--orbit-spin))) rotateZ(calc(0deg - var(--orbit-slope))) rotateX(calc(0deg - var(--orbit-tilt)));
-  transform:translateZ(0) rotate(calc(0deg - var(--orbit-spin))) rotateZ(calc(0deg - var(--orbit-slope))) rotateX(calc(0deg - var(--orbit-tilt)));
+  -webkit-transform:translateZ(0) rotateY(calc(0deg - var(--orbit-spin))) rotateZ(calc(0deg - var(--orbit-slope))) rotateX(calc(0deg - var(--orbit-tilt)));
+  transform:translateZ(0) rotateY(calc(0deg - var(--orbit-spin))) rotateZ(calc(0deg - var(--orbit-slope))) rotateX(calc(0deg - var(--orbit-tilt)));
   box-shadow:0 12px 28px rgba(18,16,12,.2);
 }
 .gallery--orbit.is-zoomed:not(.is-mosaic):not(.is-return-layout):not(.is-returned) {
-  transform:translate(calc(0px - var(--focus-shift)),0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(2.3);
+  transform:translate(calc(0px - var(--focus-shift)),0) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotateY(var(--orbit-spin)) scale(2.3);
 }
 .gallery--orbit.is-mosaic::after,
 .gallery--orbit.is-return-layout::after {
   display:none;
 }
 @keyframes intro-zoom {
-  0% { --orbit-spin:0deg; transform:translate(0,0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(1); }
-  42% { --orbit-spin:150deg; transform:translate(-14vw,0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(1.25); }
-  76% { --orbit-spin:285deg; transform:translate(-42vw,0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(1.72); }
-  100% { --orbit-spin:360deg; transform:translate(calc(0px - var(--focus-shift)),0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(2.3); }
+  0% { --orbit-spin:0deg; transform:translate(0,0) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotateY(var(--orbit-spin)) scale(1); }
+  42% { --orbit-spin:150deg; transform:translate(-14vw,0) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotateY(var(--orbit-spin)) scale(1.25); }
+  76% { --orbit-spin:285deg; transform:translate(-42vw,0) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotateY(var(--orbit-spin)) scale(1.72); }
+  100% { --orbit-spin:360deg; transform:translate(calc(0px - var(--focus-shift)),0) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotateY(var(--orbit-spin)) scale(2.3); }
 }
 @keyframes reset-orbit {
-  0% { --orbit-spin:810deg; transform:translate(var(--focus-shift),0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(2.3); }
-  48% { --orbit-spin:1170deg; transform:translate(34vw,0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(1.55); }
-  100% { --orbit-spin:1530deg; transform:translate(0,0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(1); }
+  0% { --orbit-spin:810deg; transform:translate(var(--focus-shift),0) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotateY(var(--orbit-spin)) scale(2.3); }
+  48% { --orbit-spin:1170deg; transform:translate(34vw,0) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotateY(var(--orbit-spin)) scale(1.55); }
+  100% { --orbit-spin:1530deg; transform:translate(0,0) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotateY(var(--orbit-spin)) scale(1); }
 }
 @media (max-width:700px) {
   .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) {
-    --orbit-tilt:48deg;
+    --orbit-tilt:-21deg;
     --orbit-slope:-7deg;
   }
 }
