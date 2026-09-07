@@ -673,3 +673,8 @@ html, body, body * {
 .gallery--orbit.is-return-layout .project[data-project-id="collection"]:focus-within .project-hover-info {
   transform:translateY(-50%) translateX(0) rotateY(calc(0deg - var(--return-turn)));
 }
+
+/* 第二页平铺展示的作品卡片整体上移，避免与页面元素遮挡。 */
+.gallery--orbit.is-return-layout .project {
+  top:calc(50% - 5px);
+}
