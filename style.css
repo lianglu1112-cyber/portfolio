@@ -673,3 +673,77 @@ html, body, body * {
 .gallery--orbit.is-return-layout .project[data-project-id="collection"]:focus-within .project-hover-info {
   transform:translateY(-50%) translateX(0) rotateY(calc(0deg - var(--return-turn)));
 }
+
+/* 开场作品环：将平面圆环转换为带透视的倾斜 3D 轨道。 */
+.gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) {
+  --orbit-tilt:54deg;
+  --orbit-slope:-10deg;
+  perspective:1800px;
+  transform-style:preserve-3d;
+  transform:perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin));
+}
+.gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned)::before {
+  content:"";
+  position:absolute;
+  z-index:0;
+  top:50%;
+  left:50%;
+  width:min(72vw,920px);
+  aspect-ratio:1;
+  border:1px solid rgba(16,16,16,.34);
+  border-radius:50%;
+  background:radial-gradient(circle,transparent 64.7%,rgba(255,255,255,.72) 65%,rgba(16,16,16,.14) 65.4%,transparent 66.1%);
+  box-shadow:0 0 0 8px rgba(16,16,16,.035),inset 0 0 18px rgba(255,255,255,.9),0 24px 38px rgba(16,16,12,.14);
+  pointer-events:none;
+  transform:translate(-50%,-50%) translateZ(-52px);
+}
+.gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned)::after {
+  content:"";
+  position:absolute;
+  z-index:0;
+  top:50%;
+  left:50%;
+  width:min(72vw,920px);
+  aspect-ratio:1;
+  border:1px solid rgba(255,255,255,.92);
+  border-radius:50%;
+  box-shadow:0 0 0 1px rgba(16,16,16,.08);
+  pointer-events:none;
+  transform:translate(-50%,-50%) translateZ(-64px) scale(.965);
+}
+.gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) .project {
+  z-index:1;
+  transform:translate(-50%,-50%) rotate(var(--angle)) translateY(calc(var(--radius) * -1)) rotate(calc(var(--angle) * -1)) translateZ(20px);
+  transform-style:preserve-3d;
+}
+.gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) .project-inner {
+  box-shadow:0 12px 28px rgba(18,16,12,.2);
+}
+.gallery--orbit.is-zoomed:not(.is-mosaic):not(.is-return-layout):not(.is-returned) {
+  transform:translate(calc(0px - var(--focus-shift)),0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(2.3);
+}
+.gallery--orbit.is-mosaic::after,
+.gallery--orbit.is-return-layout::after {
+  display:none;
+}
+@keyframes intro-zoom {
+  0% { --orbit-spin:0deg; transform:translate(0,0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(1); }
+  42% { --orbit-spin:150deg; transform:translate(-14vw,0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(1.25); }
+  76% { --orbit-spin:285deg; transform:translate(-42vw,0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(1.72); }
+  100% { --orbit-spin:360deg; transform:translate(calc(0px - var(--focus-shift)),0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(2.3); }
+}
+@keyframes reset-orbit {
+  0% { --orbit-spin:810deg; transform:translate(var(--focus-shift),0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(2.3); }
+  48% { --orbit-spin:1170deg; transform:translate(34vw,0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(1.55); }
+  100% { --orbit-spin:1530deg; transform:translate(0,0) perspective(1800px) rotateX(var(--orbit-tilt)) rotateZ(var(--orbit-slope)) rotate(var(--orbit-spin)) scale(1); }
+}
+@media (max-width:700px) {
+  .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned) {
+    --orbit-tilt:48deg;
+    --orbit-slope:-7deg;
+  }
+  .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned)::before,
+  .gallery--orbit:not(.is-mosaic):not(.is-return-layout):not(.is-returned)::after {
+    width:min(90vw,490px);
+  }
+}
