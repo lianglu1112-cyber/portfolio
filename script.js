@@ -56,8 +56,8 @@ const translations = {
     orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '焦点作品 · 点击任意作品查看详情', mobileViewingNote: '建议使用电脑端观看',
     projects: {
       flower: { title: '她于无根之处生长', meta: '2026.5', copy: '个人制作' },
-      woman: { title: '她以荆棘应答', meta: '3D/2026.6', copy: '个人制作' },
-      palmFish: { title: '手心鱼梦', meta: '3D/2025.11', copy: '个人制作' },
+      woman: { title: '凝视之外：她以荆棘应答', meta: '3D/2026.6', copy: '个人制作' },
+      palmFish: { title: '机械鱼会游去电子海吗', meta: '3D/2025.11', copy: '个人制作' },
       dream: { title: '未定形之庭', meta: '3D/2026.3', copy: '个人制作' },
       skyMirror: { title: '天空之镜', meta: '3D/2026.3', copy: '个人制作' },
       future: { title: '精灵女王', meta: '3D/2026.3', copy: '个人制作' },
@@ -82,8 +82,8 @@ const translations = {
     orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: 'Featured work · Select any work to view details', mobileViewingNote: 'For the best experience, please view on a desktop.',
     projects: {
       flower: { title: 'She Grows Where No Roots Take Hold', meta: 'May 2026', copy: 'Independent project' },
-      woman: { title: 'She Answers with Thorns', meta: '3D / Jun. 2026', copy: 'Independent project' },
-      palmFish: { title: 'Palm Fish Dream', meta: '3D / Nov. 2025', copy: 'Independent project' },
+      woman: { title: 'Beyond the Gaze: She Answers with Thorns', meta: '3D / Jun. 2026', copy: 'Independent project' },
+      palmFish: { title: 'Can a Mechanical Fish Swim to the Electronic Sea?', meta: '3D / Nov. 2025', copy: 'Independent project' },
       dream: { title: 'A Garden Yet to Take Shape', meta: '3D / Mar. 2026', copy: 'Independent project' },
       skyMirror: { title: 'Mirror of the Sky', meta: '3D / Mar. 2026', copy: 'Independent project' },
       future: { title: 'Elf Queen', meta: '3D / Mar. 2026', copy: 'Independent project' },
@@ -108,8 +108,8 @@ const translations = {
     orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '注目作品 · 作品を選択して詳細を見る', mobileViewingNote: 'より快適にご覧いただくため、パソコンでの閲覧をおすすめします。',
     projects: {
       flower: { title: '彼女は根なき地に育つ', meta: '2026.5', copy: '個人制作' },
-      woman: { title: '彼女は荊棘で応える', meta: '3D / 2026.6', copy: '個人制作' },
-      palmFish: { title: '手のひらの魚の夢', meta: '3D / 2025.11', copy: '個人制作' },
+      woman: { title: 'まなざしの外：彼女は荊をもって応える', meta: '3D / 2026.6', copy: '個人制作' },
+      palmFish: { title: '機械の魚は電子の海へ泳ぐのか', meta: '3D / 2025.11', copy: '個人制作' },
       dream: { title: '未定形の庭', meta: '3D / 2026.3', copy: '個人制作' },
       skyMirror: { title: '空の鏡', meta: '3D / 2026.3', copy: '個人制作' },
       future: { title: 'エルフの女王', meta: '3D / 2026.3', copy: '個人制作' },
