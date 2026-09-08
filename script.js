@@ -55,7 +55,7 @@ const translations = {
     closePreview: '关闭预览', closeDetail: '关闭作品详情', back: '返回', viewWork: '查看', viewImage: '查看原图', viewVideo: '查看视频', hoverName: '名称', hoverTime: '制作时间', hoverType: '类型', hoverMasterProject: '硕士毕业研究课题', hoverUndergraduateProject: '本科毕业设计', type3d: '3D', typeUiUx: 'UI/UX设计', type3dBook: '3D，实物书', typeFilm18: '18min短片', typeFilm17: '17min短片', typeHandcraft: '手工', typeInteractive: '互动动画', typePublicService: '1min公益广告',
     orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '焦点作品 · 点击任意作品查看详情', mobileViewingNote: '建议使用电脑端观看',
     projects: {
-      flower: { title: '她于无根之处生长', meta: '2026.5', copy: '个人制作' },
+      flower: { title: '凝视之外：她不止以花盛放', meta: '2026.5', copy: '个人制作' },
       woman: { title: '凝视之外：她以荆棘应答', meta: '3D/2026.6', copy: '个人制作' },
       palmFish: { title: '机械鱼会游去电子海吗', meta: '3D/2025.11', copy: '个人制作' },
       dream: { title: '未定形之庭', meta: '3D/2026.3', copy: '个人制作' },
@@ -81,7 +81,7 @@ const translations = {
     closePreview: 'Close preview', closeDetail: 'Close work detail', back: 'Back', viewWork: 'View', viewImage: 'View image', viewVideo: 'Watch film', hoverName: 'Title', hoverTime: 'Date', hoverType: 'Type', hoverMasterProject: 'Master’s graduation research project', hoverUndergraduateProject: 'Undergraduate graduation project', type3d: '3D', typeUiUx: 'UI/UX Design', type3dBook: '3D / Physical book', typeFilm18: '18-min short film', typeFilm17: '17-min short film', typeHandcraft: 'Handcraft', typeInteractive: 'Interactive animation', typePublicService: '1-min public service film',
     orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: 'Featured work · Select any work to view details', mobileViewingNote: 'For the best experience, please view on a desktop.',
     projects: {
-      flower: { title: 'She Grows Where No Roots Take Hold', meta: 'May 2026', copy: 'Independent project' },
+      flower: { title: 'Beyond the Gaze: She Blooms Beyond Flowers', meta: 'May 2026', copy: 'Independent project' },
       woman: { title: 'Beyond the Gaze: She Answers with Thorns', meta: '3D / Jun. 2026', copy: 'Independent project' },
       palmFish: { title: 'Can a Mechanical Fish Swim to the Electronic Sea?', meta: '3D / Nov. 2025', copy: 'Independent project' },
       dream: { title: 'A Garden Yet to Take Shape', meta: '3D / Mar. 2026', copy: 'Independent project' },
@@ -107,7 +107,7 @@ const translations = {
     closePreview: 'プレビューを閉じる', closeDetail: '作品詳細を閉じる', back: '戻る', viewWork: '見る', viewImage: '画像を見る', viewVideo: '映像を見る', hoverName: '作品名', hoverTime: '制作時期', hoverType: '種類', hoverMasterProject: '修士修了研究', hoverUndergraduateProject: '大学卒業制作', hoverWorkInProgress: '制作中・随時更新', type3d: '3D', typeUiUx: 'UI/UXデザイン', type3dBook: '3D・実物書', typeFilm18: '映像', typeFilm17: '映像', typeHandcraft: '手作り', typeInteractive: 'インタラクティブアニメーション', typePublicService: '映像',
     orbitHomeName: '', orbitHomeMeta: '', orbitFocusName: 'kiuso', orbitFocusMeta: '注目作品 · 作品を選択して詳細を見る', mobileViewingNote: 'より快適にご覧いただくため、パソコンでの閲覧をおすすめします。',
     projects: {
-      flower: { title: '彼女は根なき地に育つ', meta: '2026.5', copy: '個人制作' },
+      flower: { title: 'まなざしの外： 花だけが、彼女の咲き方ではない。', meta: '2026.5', copy: '個人制作' },
       woman: { title: 'まなざしの外：彼女は荊をもって応える', meta: '3D / 2026.6', copy: '個人制作' },
       palmFish: { title: '機械の魚は電子の海へ泳ぐのか', meta: '3D / 2025.11', copy: '個人制作' },
       dream: { title: '未定形の庭', meta: '3D / 2026.3', copy: '個人制作' },
