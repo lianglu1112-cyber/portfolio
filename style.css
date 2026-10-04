@@ -679,36 +679,20 @@ html, body, body * {
   top:calc(50% - 5px);
 }
 
-/* 手机端开场提示。 */
+/* 作品展示页底部居中的浏览器提示。 */
 .mobile-viewing-note {
-  display:none;
-}
-@media (max-width:700px) {
-  .mobile-viewing-note {
-    display:block;
-    position:absolute;
-    z-index:4;
-    top:calc(50% + 38px);
-    left:50%;
-    width:max-content;
-    max-width:calc(100vw - 40px);
-    margin:0;
-    padding:8px 11px;
-    color:rgba(16,16,16,.68);
-    border:1px solid rgba(16,16,16,.14);
-    border-radius:999px;
-    background:rgba(252,252,252,.72);
-    font:11px/1.35 var(--mono);
-    text-align:center;
-    opacity:0;
-    pointer-events:none;
-    transform:translate(-50%,-4px);
-    transition:opacity .45s ease,transform .45s ease;
-  }
-  body.is-opening .mobile-viewing-note {
-    opacity:1;
-    transform:translate(-50%,0);
-  }
+  position:absolute;
+  z-index:4;
+  bottom:max(20px, env(safe-area-inset-bottom));
+  left:50%;
+  width:max-content;
+  max-width:calc(100% - 120px);
+  margin:0;
+  color:rgba(16,16,16,.58);
+  font:11px/1.5 var(--sans);
+  text-align:center;
+  pointer-events:none;
+  transform:translateX(-50%);
 }
 
 /* 六件竖版 3D 作品的详情图：收束尺寸，并始终完整展示。 */
